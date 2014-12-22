@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Programming 1 Coursework</name>
+    </assembly>
+    <members>
+        <member name="T:Gameboard_Drawing.GameBoard">
+            <summary>
+            This method library is for drawing the board and players. It is only
+            able to draw the players, it cannot move them around the board.
+            </summary>
+        </member>
+        <member name="F:Gameboard_Drawing.GameBoard.board">
+            <summary>
+            This will be the board after it has been constructed (so to draw the
+            board we only have to print this string)
+            </summary>
+        </member>
+        <member name="F:Gameboard_Drawing.GameBoard.boardEndTop">
+            <summary>
+            This will store where the end of the board starts in the Y axis
+            </summary>
+        </member>
+        <member name="F:Gameboard_Drawing.GameBoard.boardMargin">
+            <summary>
+            This is the whitespace between the left side of the console and the
+            left side of the game board
+            </summary>
+        </member>
+        <member name="F:Gameboard_Drawing.GameBoard.boardOriginTop">
+            <summary>
+            This will store where the top of the board starts in the Y axis
+            </summary>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.ClearOneCell(System.Int32)">
+            <summary>
+            Clears one cell from the board.
+            </summary>
+            <param name="position">The cell you want to clear</param>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.ClearAllCells">
+            <summary>
+            This clears all the cells on the board.
+            </summary>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.CreateBoard(System.Int32)">
+            <summary>
+            This will create the game board as a string.
+            </summary>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.DrawBoard">
+            <summary>
+            Prints out the board, this is not complete yet.
+            </summary>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.DrawPlayers(System.Collections.Generic.List{Main_Game.TacticalCheese.Player})">
+            <summary>
+            Clears the player sections on the board and then prints out the
+            players in the correct location
+            </summary>
+            <param name="players">list of all the players in the game</param>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.GetEndOfBoard">
+            <summary>
+            Get where the end of the board is
+            </summary>
+            <returns>
+            integer representing where the board ends (from the top of the console)
+            </returns>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.IsCheese(System.Int32)">
+            <summary>
+            Checks if a cell is a cheese square, and returns true if it is.
+            </summary>
+            <param name="cellNumber">The cell you want to check</param>
+            <returns>True is cell is cheese and false if cell is not cheese</returns>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.DrawNumbers">
+            <summary>
+            draws the numbers onto the board (will probably merge this with
+            drawboard as it no longer need parameters passing to it
+            </summary>
+        </member>
+        <member name="M:Gameboard_Drawing.GameBoard.LocateCell(System.Int32,System.Boolean)">
+            <summary>
+            Locates a cell on the game board, will default to the player section
+            of the cell but can select the cell number section by overloading
+            the method with a bool set to false.
+            </summary>
+            <param name="toFind">The cell that you want to find</param>
+            <param name="isPlayer">
+            if you want to select the player area (defaults to true)
+            </param>
+        </member>
+        <member name="T:UserInputClass.UserInput">
+            <summary>
+            This is the menu system that I have been developing during the fenner
+            labs to help me with my cinema entry program, I have tried my best to
+            make this so that I can include it with any console application I want
+            without having to alter the code.
+            
+            This class mostly deals with validation of input and making user input
+            easier through selection menus.
+            </summary>
+        </member>
+        <member name="M:UserInputClass.UserInput.ClearInputString(System.Int32,System.Int32,System.String)">
+            <summary>
+            Takes a string that the user wrote on the screen and clears it,
+            </summary>
+            <param name="inStartOffsetL">
+            Where the cursor started before the user typed anything (from the
+            left of the console)
+            </param>
+            <param name="inStartOffsetT">
+            Where the cursor started before the user typed anything (from the
+            top of the console)
+            </param>
+            <param name="inString">The string to be cleared from the screen</param>
+        </member>
+        <member name="M:UserInputClass.UserInput.Header(System.String,System.Int32)">
+            <summary>
+            Draws a header at the top of the screen and returns the cursor back
+            to the start location.
+            </summary>
+            <param name="inHeader">Title of the header to be passed in</param>
+            <param name="colour">Colour of the header (default is red)</param>
+        </member>
+        <member name="M:UserInputClass.UserInput.ReadFile(System.String,System.Collections.Generic.List{System.String})">
+            <summary>
+            Reads in from a text file and adds each line to a list of strings
+            (you will need to pass the list to this method)
+            </summary>
+            <param name="stringList">List to add the films to</param>
+            <param name="fileName">File name to read from (include .txt)</param>
+        </member>
+        <member name="M:UserInputClass.UserInput.YesNo">
+            <summary>
+            Writes a menu to the screen that gives the user the ablility to
+            select either yes or no.
+            </summary>
+            <returns>Boolen yes=true no=false</returns>
+        </member>
+        <member name="M:UserInputClass.UserInput.ValidString(System.Int32,System.Int32)">
+            <summary>
+            This method will get the user to write a string and will force the
+            user to write something in (so you dont get any blank strings)
+            </summary>
+            <returns>The string the user entered</returns>
+        </member>
+        <member name="M:UserInputClass.UserInput.ReadRange(System.Int32,System.Int32)">
+            <summary>
+            A method that takes a minimum number and a maximum number and allows
+            the user to input a number within those bounds. The method will not
+            allow the user to crash the program by entering in a string variable
+            / integer too large or small, and it will output a relevent error message.
+            </summary>
+            <param name="min">The minimum value for the number</param>
+            <param name="max">The maximum value for the number</param>
+            <returns>the integer that the user inputted</returns>
+        </member>
+        <member name="M:UserInputClass.UserInput.ValidInteger">
+            <summary>
+            Gets user input for an integer, doesn't print any errors, insted
+            simply deletes the invalid number. If this breaks keep in mind i did
+            this at 1am
+            </summary>
+            <returns>the integer the user inputs</returns>
+        </member>
+        <member name="M:UserInputClass.UserInput.SelectionMenu(System.String[],System.Int32)">
+             <summary>
+             This method creates a user friendly menu that allows users to select
+             items from an array of strings.
+             Also has a optional integer parameter which allows you to set the
+             padding around the menu.
+             Will Throw exception if there are too many items + padding to display
+             on the screen.
+             </summary>
+             <param name="selectionArray">String Array containing each line of the
+             menu</param>
+            <param name="padding">How much space to pad arounf the menu</param>
+             <returns>integer that is the index of the item the user selected.
+             </returns>
+        </member>
+        <member name="M:UserInputClass.UserInput.SelectionMenu(System.Char[],System.Int32)">
+             <summary>
+             This method creates a user friendly menu that allows users to select
+             items from an array of strings.
+             Also has a optional integer parameter which allows you to set the
+             padding around the menu.
+             Will Throw exception if there are too many items + padding to display
+             on the screen.
+             </summary>
+             <param name="selectionArray">String Array containing each line of the
+             menu</param>
+            <param name="padding">How much space to pad arounf the menu</param>
+             <returns>integer that is the index of the item the user selected.
+             </returns>
+        </member>
+        <member name="M:UserInputClass.UserInput.SelectionMenu(System.Collections.Generic.List{System.String},System.Int32)">
+            <summary>
+            This method creates a user friendly menu that allows users to select
+            items from an array of strings. Also has a optional integer
+            parameter which allows you to set the padding around the menu. Will
+            Throw exception if there are too many items + padding to display on
+            the screen.
+            </summary>
+            <param name="selectionList">
+            String Array containing each line of the menu
+            </param>
+            <param name="padding">How much space to pad arounf the menu</param>
+            <returns>integer that is the index of the item the user selected.</returns>
+        </member>
+        <member name="T:Main_Game.TacticalCheese">
+            <summary>
+            This holds the main game loop and some methods for presentation
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.debugMode">
+            <summary>
+            The current dubug state of the program
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.diceRandomiser">
+            <summary>
+            The randomiser that all the dice will get their rolls from
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.listOfPlayers">
+            <summary>
+            The list that holds all the players after they have been created
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.resumePlayer">
+            <summary>
+            If the game is loaded from a save state this will be the starting player
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.SCREENHEIGHT">
+            <summary>
+            The height of the screen in characters
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.SCREENWIDTH">
+            <summary>
+            The width of the screen in characters
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.state">
+            <summary>
+            The current gamestate the program is in (will be used in a switch in
+            the main loop)
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.winnerName">
+            <summary>
+            The name of the player who wins
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.Main(System.String[])">
+            <summary>
+            The Main method is where the console is setup and where the main
+            loop is executed.
+            </summary>
+            <param name="args"></param>
+            <returns>0 so that i can tell the program exited correctly.</returns>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.TacticalRoll(System.Int32)">
+            <summary>
+            This will perform a "tactical roll" which will roll a D6 and will
+            perform the tactic assosiated with that dice roll.
+            </summary>
+            <param name="playerNumber">
+            The number of the player who made the tactical roll
+            </param>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.ClearInformationArea">
+            <summary>
+            This method clears the "information area" of the screen. (The
+            information area is located under the board area.)
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.MainMenu(System.Boolean@)">
+            <summary>
+            The main menu will print a selection menu so the user can choose
+            where to navigate to next, it will also have a colour coded header
+            depending on if the program is in debug mode or not
+            </summary>
+            <param name="quitSetting">
+            The quit setting of the program (will be made true if the user
+            selects quit)
+            </param>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.SetupBoard">
+            <summary>
+            This method draws the game board in the correct place and then draws
+            the players onto it
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.CreatePlayers">
+            <summary>
+            This method is for setting up the players in the player list, it
+            will ask the users how many players will be playing and what each
+            players name and ship will be.
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.PlayerMover(System.Int32,System.Int32)">
+            <summary>
+            This method moves a player a set distance and makes the player look
+            like they are moving through each cell of the board to get there.
+            </summary>
+            <param name="playerToMove">The player to be moved</param>
+            <param name="distance">
+            The distance you want to move the player (negative to go backwards)
+            </param>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.PlayerMoveToCell(System.Int32,System.Int32)">
+            <summary>
+            This method is similar to the PlayerMover method although instead of
+            moveing the player a set distance it moves the player to a set cell.
+            This will throw an exception if the cell number you give to it is
+            not within the GameBoard.
+            </summary>
+            <param name="playerToMove">The player to move</param>
+            <param name="cellNumber">The cell to move the player to</param>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.PlayerSelector">
+            <summary>
+            This method will print out a selection menu which lists each
+            player's ship, name and colour. The user can select one of the players
+            </summary>
+            <returns>The player that the user selected</returns>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.GameTurn">
+            <summary>
+            This method is what organises each turn of the game and holds the
+            vast majority of the game logic
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.ExitMidGame(System.Int32)">
+            <summary>
+            This method will ask the player if they want to save the game or not
+            and then exits to the main menu
+            </summary>
+            <param name="playerNumber">
+            the player number that the game was exited on
+            </param>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.ResetGame">
+            <summary>
+            This method resets all the player positions to zero and then saves
+            the game. so that when the user loads the game again they wont have
+            to retype everyones name into the system.
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.RollDice">
+            <summary>
+            This method will roll a D6 dice, but if the program is in debug mode
+            then it will ask for a debug roll (the user simply tpyes what they
+            want to roll)
+            </summary>
+            <returns>The dice roll</returns>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.LoadGame">
+            <summary>
+            The load game method will take the save.tcr file that is found next
+            to the .exe and will read the values into the list of players (this
+            is essentially the player selection method but automatic. If the
+            file read errors then it will return false.
+            </summary>
+            <returns>True if file read was successful and false if it failed</returns>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.SaveGame(System.Int32,System.String)">
+            <summary>
+            The save game method will take important information from the game
+            (the player list and the current player turn) and will convert it
+            into a text file that the loadgame method can parse
+            </summary>
+            <param name="currentPlayer">
+            The player turn that the game was saved on
+            </param>
+            <param name="fileName">The name of the save file</param>
+        </member>
+        <member name="T:Main_Game.TacticalCheese.GameState">
+            <summary>
+            The game state enumerator is what I use to track what part of the
+            game the user wants to be in.
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.GameState.GAMEMENU">
+            <summary>
+            The game menu state makes the game open the main menu method so
+            the player can play/load the game, toggle the debug settings or
+            quit the game
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.GameState.PLAYGAME">
+            <summary>
+            The play game state is where the game actually begins, all the
+            relevent game logic will be running when the game is set to this state.
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.GameState.PLAYERSELECTION">
+            <summary>
+            The player selection state is used to allow players to input
+            their player information
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.GameState.LOADGAME">
+            <summary>
+            The Load game state will load the previous game from a text file
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.GameState.GAMEOVER">
+            <summary>
+            When the game finishes this will display the winner of the game
+            </summary>
+        </member>
+        <member name="T:Main_Game.TacticalCheese.Player">
+            <summary>
+            The Player struct holds the information regarding each player on the board
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.Player.colour">
+            <summary>
+            Is the colour of the Ship that the player will have
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.Player.name">
+            <summary>
+            Holds the name of the player
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.Player.number">
+            <summary>
+            Will hold a unique number for each player on the board
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.Player.position">
+            <summary>
+            Holds the cell poition of the player (where they are on the board)
+            </summary>
+        </member>
+        <member name="F:Main_Game.TacticalCheese.Player.ship">
+            <summary>
+            Will be the player character (what the player looks like on the board)
+            </summary>
+        </member>
+        <member name="M:Main_Game.TacticalCheese.Player.#ctor(System.Int32,System.String,System.Char,System.Int32)">
+            <summary>
+            This constructor sets up all the values in the player struct.
+            </summary>
+            <param name="inPlayerNumber">
+            Will set a unique number for each player on the board
+            </param>
+            <param name="inName">Sets name of player</param>
+            <param name="inShip">Sets how the ship will look</param>
+            <param name="inPosition">
+            Sets the position of the player (defaults to 0)
+            </param>
+        </member>
+    </members>
+</doc>
