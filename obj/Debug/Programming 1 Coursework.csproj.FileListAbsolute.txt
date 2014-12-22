@@ -27,3 +27,10 @@ B:\Programming Handin\Source Code\Programming 1 Coursework\bin\Debug\Programming
 B:\Programming Handin\Source Code\Programming 1 Coursework\bin\Debug\Programming 1 Coursework.XML
 B:\Programming Handin\Source Code\Programming 1 Coursework\obj\Debug\Programming 1 Coursework.exe
 B:\Programming Handin\Source Code\Programming 1 Coursework\obj\Debug\Programming 1 Coursework.pdb
+C:\Users\Brogie\Documents\Git\tacticalCheese\bin\Debug\Programming 1 Coursework.exe.config
+C:\Users\Brogie\Documents\Git\tacticalCheese\bin\Debug\Programming 1 Coursework.XML
+C:\Users\Brogie\Documents\Git\tacticalCheese\obj\Debug\Programming 1 Coursework.exe
+C:\Users\Brogie\Documents\Git\tacticalCheese\obj\Debug\Programming 1 Coursework.pdb
+C:\Users\Brogie\Documents\Git\tacticalCheese\bin\Debug\Programming 1 Coursework.exe
+C:\Users\Brogie\Documents\Git\tacticalCheese\bin\Debug\Programming 1 Coursework.pdb
+C:\Users\Brogie\Documents\Git\tacticalCheese\obj\Debug\Programming 1 Coursework.csprojResolveAssemblyReference.cache

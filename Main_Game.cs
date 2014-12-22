@@ -765,13 +765,25 @@ namespace Main_Game
         private static bool LoadGame()
         {
             StreamReader reader = null;
-            string[] filePaths = Directory.GetFiles(@"saves\", "*.tcr");
+            string[] filePaths;
             string fileSelected;
             int amountOfPlayers = 0;
             int position = 0;
             string name;
             string tempShip;
             char ship;
+
+            /*we need to check if there is a save directory made for tyhe player to load from.
+            else we need to return false to indicate file loading error.
+             */
+            if (Directory.Exists(@"saves\"))
+            {
+                filePaths = Directory.GetFiles(@"saves\", "*.tcr");
+            }
+            else
+            {
+                return false;
+            }
 
             listOfPlayers.Clear();
 
@@ -846,6 +858,12 @@ namespace Main_Game
         /// <param name="fileName">The name of the save file</param>
         private static void SaveGame(int currentPlayer, string fileName)
         {
+            //first we need to check is the save game directory has been setup.
+            if (!Directory.Exists(@"saves\"))
+            {
+                Directory.CreateDirectory(@"saves\");
+            }
+
             StreamWriter writer = null;
             //We make a string that will buffer what the output file will have, this means we have less writing to the file
             string outputBuffer = "";
