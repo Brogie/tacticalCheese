@@ -489,7 +489,7 @@ namespace Main_Game
 
             //if the player needs to travel more than 8 spaces each way speed up the player (to save time)
             if (distance >= -6 && distance <= 6)
-                animationSpeed = 200;
+                animationSpeed = 100;
             else
                 animationSpeed = 50;
 
