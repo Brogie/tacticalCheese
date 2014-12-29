@@ -449,7 +449,7 @@ namespace Main_Game
             UserInput.Header("Player Selection");
 
             //GET THE NUMBER OF PLAYERS
-            Console.Write("Please enter the amount of players (2-4): ");
+            Console.Write("Please enter the amount of players (2-8): ");
             int amountOfPlayers = UserInput.ReadRange(min: 2, max: 8);
             Console.Clear();
 
