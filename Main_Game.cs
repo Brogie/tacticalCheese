@@ -37,7 +37,7 @@ namespace Main_Game
         /// <summary>
         /// The height of the screen in characters
         /// </summary>
-        private static int SCREENHEIGHT           = 58;
+        private static int SCREENHEIGHT           = 64;
 
         /// <summary>
         /// The width of the screen in characters
@@ -450,7 +450,7 @@ namespace Main_Game
 
             //GET THE NUMBER OF PLAYERS
             Console.Write("Please enter the amount of players (2-4): ");
-            int amountOfPlayers = UserInput.ReadRange(min: 2, max: 4);
+            int amountOfPlayers = UserInput.ReadRange(min: 2, max: 8);
             Console.Clear();
 
             //GET INFORMATION FOR EACH INDEVIDUAL PLAYER AND ADD THEM TO THE PLAYER LIST
@@ -491,7 +491,7 @@ namespace Main_Game
             if (distance >= -6 && distance <= 6)
                 animationSpeed = 200;
             else
-                animationSpeed = 75;
+                animationSpeed = 50;
 
             //If the player needs to be moved forward we do the If, but if the player needs to be moved backwards we do the else.
             if (distance >= 0)
@@ -803,13 +803,13 @@ namespace Main_Game
                 //load the ammount of players and check validity
                 amountOfPlayers = int.Parse(reader.ReadLine());
 
-                if (amountOfPlayers < 2 || amountOfPlayers > 4)
+                if (amountOfPlayers < 2 || amountOfPlayers > 8)
                     throw new Exception("Save file error: invalid number of players");
 
                 //set the resume player and check validity
                 resumePlayer = int.Parse(reader.ReadLine());
 
-                if (amountOfPlayers < 2 || amountOfPlayers > 4)
+                if (resumePlayer < 0 || resumePlayer > 8)
                     throw new Exception("Save file error: invalid resume player");
 
                 //construct the player list

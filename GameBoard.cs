@@ -175,7 +175,7 @@ namespace Gameboard_Drawing
                 if (p.position > 0 && p.position <= 64)
                 {
                     LocateCell(toFind: p.position, isPlayer: true);
-                    Console.CursorLeft = Console.CursorLeft + (2 + p.number);
+                    Console.CursorLeft = Console.CursorLeft + (p.number);
 
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = (ConsoleColor)(p.colour);
