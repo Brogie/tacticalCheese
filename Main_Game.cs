@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using System.Threading;
 using UserInputClass;
 
@@ -37,7 +38,7 @@ namespace Main_Game
         /// <summary>
         /// The height of the screen in characters
         /// </summary>
-        private static int SCREENHEIGHT           = 64;
+        private static int SCREENHEIGHT           = 58;
 
         /// <summary>
         /// The width of the screen in characters
@@ -195,9 +196,9 @@ namespace Main_Game
                         }
                         else
                         {
-                            Console.WriteLine("Save file loading error (Have you got any save files saved yet?), you will have to re-enter players.");
+                            Console.WriteLine("Save file loading error (Have you got any save files saved yet?)");
                             Console.ReadKey();
-                            state = GameState.PLAYERSELECTION;
+                            state = GameState.GAMEMENU;
                         }
                         break;
 
@@ -328,9 +329,11 @@ namespace Main_Game
         private static void ClearInformationArea()
         {
             int linesToWipe = SCREENHEIGHT - GameBoard.GetEndOfBoard();
-            string clearingString = "";
 
             Console.SetCursorPosition(0, GameBoard.GetEndOfBoard());
+
+            //generate a clearing string
+            StringBuilder clearingString = new StringBuilder();
 
             //if we wipe one line less than we need to (linesToWipe - 1) then we will not push the game
             //out of the buffer, but we won't clear the last line of the console (bad workaround but I
@@ -339,7 +342,7 @@ namespace Main_Game
             {
                 for (int j = 0; j < SCREENWIDTH; j++)
                 {
-                    clearingString += " ";
+                    clearingString.Append(" ");
                 }
             }
 
@@ -449,8 +452,8 @@ namespace Main_Game
             UserInput.Header("Player Selection");
 
             //GET THE NUMBER OF PLAYERS
-            Console.Write("Please enter the amount of players (2-8): ");
-            int amountOfPlayers = UserInput.ReadRange(min: 2, max: 8);
+            Console.Write("Please enter the amount of players (2-4): ");
+            int amountOfPlayers = UserInput.ReadRange(min: 2, max: 4);
             Console.Clear();
 
             //GET INFORMATION FOR EACH INDEVIDUAL PLAYER AND ADD THEM TO THE PLAYER LIST
@@ -489,9 +492,9 @@ namespace Main_Game
 
             //if the player needs to travel more than 8 spaces each way speed up the player (to save time)
             if (distance >= -6 && distance <= 6)
-                animationSpeed = 100;
+                animationSpeed = 150;
             else
-                animationSpeed = 50;
+                animationSpeed = 75;
 
             //If the player needs to be moved forward we do the If, but if the player needs to be moved backwards we do the else.
             if (distance >= 0)
@@ -803,13 +806,13 @@ namespace Main_Game
                 //load the ammount of players and check validity
                 amountOfPlayers = int.Parse(reader.ReadLine());
 
-                if (amountOfPlayers < 2 || amountOfPlayers > 8)
+                if (amountOfPlayers < 2 || amountOfPlayers > 4)
                     throw new Exception("Save file error: invalid number of players");
 
                 //set the resume player and check validity
                 resumePlayer = int.Parse(reader.ReadLine());
 
-                if (resumePlayer < 0 || resumePlayer > 8)
+                if (resumePlayer < 0 || resumePlayer > 4)
                     throw new Exception("Save file error: invalid resume player");
 
                 //construct the player list

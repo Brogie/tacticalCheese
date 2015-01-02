@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace UserInputClass
 {
@@ -33,6 +34,8 @@ namespace UserInputClass
         /// <param name="inString">The string to be cleared from the screen</param>
         public static void ClearInputString(int inStartOffsetL, int inStartOffsetT, string inString)
         {
+            int whitespace = 0;
+
             //move the cursor to the start of where the user began inputting
             Console.SetCursorPosition(inStartOffsetL, inStartOffsetT);
 
@@ -41,17 +44,29 @@ namespace UserInputClass
             //needs to loop once per character in the string (subtract tab characters as we handle tabs later)
             for (int i = 0; i < (inString.Length - inString.Count(tabs => tabs == '\t')); i++)
             {
-                Console.Write(" ");
+                whitespace += 1;
             }
 
             //this handles and tab characters that have been inputted 
             for (int i = 0; i < inString.Count(tabs => tabs == '\t'); i++)
             {
-                Console.Write("        ");
+                whitespace += 8;
             }
+
+            //generate a string that is all spaces and is the length of the whitespace needed.
+            StringBuilder ClearingString = new StringBuilder(string.Empty, whitespace);
+
+            for (int i = 0; i < whitespace ; i++)
+            {
+                ClearingString.Insert(i, " ");
+            }
+
+            //print the clearing string to clear the text
+            Console.Write(ClearingString);
 
             //finally reset the curser to allow the user to reinput the number
             Console.SetCursorPosition(inStartOffsetL, inStartOffsetT);
+
         }
 
         /// <summary>
@@ -64,7 +79,7 @@ namespace UserInputClass
         {
             //Declare Variables
             int whitespace = 0;
-            string outHeader = "";
+            StringBuilder outHeader = new StringBuilder (string.Empty);
             int startTOffset, startLOffset;
 
             //Grab the curser so we can move back to its location after we finish
@@ -83,41 +98,41 @@ namespace UserInputClass
                 inHeader = "Error: Header too long";
 
             //draw the top of the box
-            outHeader += "╔";
+            outHeader.Append("╔");
 
             for (int i = 0; i < (Console.WindowWidth - 2); i++)
-                outHeader += "═";
+                outHeader.Append("═");
 
-            outHeader += "╗";
+            outHeader.Append("╗");
 
             //calculate the whitespace required for each side of the header
             whitespace = (((Console.WindowWidth - inHeader.Length) / 2) - 1);
 
             //Construct middle part of box with the header in the middle
-            outHeader += "║";
+            outHeader.Append("║");
 
             for (int i = 0; i < whitespace; i++)
-                outHeader += " ";
+                outHeader.Append(" ");
 
-            outHeader += inHeader;
+            outHeader.Append(inHeader);
 
             for (int i = 0; i < whitespace; i++)
-                outHeader += " ";
+                outHeader.Append(" ");
 
             //Add an extra = in the whitespace if the header has an odd amount
             //of characters
             if (inHeader.Length % 2 != 0)
-                outHeader += " ";
+                outHeader.Append(" ");
 
-            outHeader += "║";
+            outHeader.Append("║");
 
             //draw bottom of the box
-            outHeader += "╚";
+            outHeader.Append("╚");
 
             for (int i = 0; i < (Console.WindowWidth - 2); i++)
-                outHeader += "═";
+                outHeader.Append("═");
 
-            outHeader += "╝";
+            outHeader.Append("╝");
 
             //Draw the header
             Console.ForegroundColor = ConsoleColor.White;
