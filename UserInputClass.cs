@@ -337,12 +337,12 @@ namespace UserInputClass
 
             while (!loopComplete)
             {
-                //This for loop prints the films available (from the filmNames array)
+                //This for loop prints the array out
                 for (int i = 0; i < selectionArray.Length; i++)
                 {
                     if (i == selectedItem)
                     {
-                        //This section is what highlights the selected film
+                        //This section is what highlights the selected item
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("-" + selectionArray[i]);
@@ -350,7 +350,7 @@ namespace UserInputClass
                     }
                     else
                     {
-                        //this section is what prints unselected film names
+                        //this section is what prints unselected items
                         Console.WriteLine("-" + selectionArray[i]);
                     }
                 }
@@ -430,12 +430,12 @@ namespace UserInputClass
 
             while (!loopComplete)
             {
-                //This for loop prints the films available (from the filmNames array)
+                //This for loop prints the array
                 for (int i = 0; i < selectionArray.Length; i++)
                 {
                     if (i == selectedItem)
                     {
-                        //This section is what highlights the selected film
+                        //This section is what highlights the selected item
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("-" + selectionArray[i]);
@@ -443,7 +443,7 @@ namespace UserInputClass
                     }
                     else
                     {
-                        //this section is what prints unselected film names
+                        //this section is what prints unselected items
                         Console.WriteLine("-" + selectionArray[i]);
                     }
                 }
@@ -521,12 +521,12 @@ namespace UserInputClass
 
             while (!loopComplete)
             {
-                //This for loop prints the films available (from the filmNames array)
+                //This for loop prints list
                 for (int i = 0; i < selectionList.Count; i++)
                 {
                     if (i == selectedItem)
                     {
-                        //This section is what highlights the selected film
+                        //This section is what highlights the selected item
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("-" + selectionList[i]);
@@ -534,7 +534,7 @@ namespace UserInputClass
                     }
                     else
                     {
-                        //this section is what prints unselected film names
+                        //this section is what prints unselected items
                         Console.WriteLine("-" + selectionList[i]);
                     }
                 }
