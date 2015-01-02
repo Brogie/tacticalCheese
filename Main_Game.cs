@@ -490,6 +490,8 @@ namespace Main_Game
         {
             int animationSpeed;
 
+            Console.CursorVisible = false;
+
             //if the player needs to travel more than 8 spaces each way speed up the player (to save time)
             if (distance >= -6 && distance <= 6)
                 animationSpeed = 150;
@@ -520,7 +522,8 @@ namespace Main_Game
                     //update the players on the board so that it looks like they have moved one square
                     GameBoard.DrawPlayers(players: listOfPlayers);
 
-                    Thread.Sleep(animationSpeed);
+                    if (animationSpeed != 0)
+                        Thread.Sleep(animationSpeed);
                 }
             }
             else
@@ -553,9 +556,12 @@ namespace Main_Game
                     //update the players on the board so that it looks like they have moved one square
                     GameBoard.DrawPlayers(players: listOfPlayers);
 
-                    Thread.Sleep(animationSpeed);
+                    if (animationSpeed != 0)
+                        Thread.Sleep(animationSpeed);
                 }
             }
+
+            Console.CursorVisible = true;
         }
 
         /// <summary>
