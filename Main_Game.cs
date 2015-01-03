@@ -519,6 +519,12 @@ namespace Main_Game
                     tempPlayer.position++;
                     listOfPlayers[playerToMove] = tempPlayer;
 
+                    //If the player tries to go backwards beyond 0 keep them at 0. (this is mostly for the debug mode)
+                    if (listOfPlayers[playerToMove].position > 64)
+                    {
+                        break;
+                    }
+
                     //update the players on the board so that it looks like they have moved one square
                     GameBoard.DrawPlayers(players: listOfPlayers);
 
@@ -548,7 +554,7 @@ namespace Main_Game
                     //If the player tries to go backwards beyond 0 keep them at 0. (this is mostly for the debug mode)
                     if (tempPlayer.position < 0)
                     {
-                        tempPlayer.position = 0;
+                        break;
                     }
 
                     listOfPlayers[playerToMove] = tempPlayer;
@@ -756,7 +762,7 @@ namespace Main_Game
             else
             {
                 Console.Write("Debug Roll: ");
-                return UserInput.ReadRange(min:-64, max: 64);
+                return UserInput.ValidInteger();
             }
         }
 
