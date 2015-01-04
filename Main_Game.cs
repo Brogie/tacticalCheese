@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using UserInputClass;
 
-namespace Main_Game
+namespace MainGame
 {
     /// <summary>
     /// This holds the main game loop and some methods for presentation
@@ -281,7 +281,7 @@ namespace Main_Game
                 case 4: /*If the player rolls a 4 their engines are given a “chedder power boost” and their ship moves six squares forwards.
                          * If the rocket passes the last square the player wins the game.*/
 
-                    Console.WriteLine("Oh yeah!!! Your engines are given a Chedder power boost! (Move forwards 6 cells)");
+                    Console.WriteLine("Oh yeah!!! Your engines are given a Cheddar power boost! (Move forwards 6 cells)");
                     PlayerMover(playerToMove: playerNumber, distance: 6);
                     break;
 
