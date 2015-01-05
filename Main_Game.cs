@@ -1,5 +1,4 @@
-//merge error location.
-﻿using Gameboard_Drawing;
+using Gameboard_Drawing;
 using System;
 using System.Collections.Generic;
 using System.IO;
