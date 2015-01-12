@@ -232,9 +232,13 @@ namespace MainGame
 
             //roll dice
             Console.Write("\nPress the any key to roll the tactical dice:");
-            Console.ReadKey(true);
 
-            tacticDiceRoll = RollDice();
+            tacticDiceRoll = RollDice(playerNumber:playerNumber);
+
+            //if the dice roll set the state to menu stop this code
+            if (state == GameState.GAMEMENU)
+                return;
+
             Console.WriteLine(" You rolled {0}\n", tacticDiceRoll);
 
             //use switch statement to execute a tactic
@@ -371,7 +375,7 @@ namespace MainGame
             if (debugMode == false)
                 UserInput.Header(inHeader: "Welcome to Tactical Cheese Racer");
             else
-                UserInput.Header(inHeader: "Welcome to Tactical Cheese Racer - Debug Mode", colour: 5);
+                UserInput.Header(inHeader: "Welcome to Tactical Cheese Racer - Debug Mode (Note you cannot quit midgame)", colour: 5);
 
             Console.WriteLine(@" _______         _   _           _    _____                      ");
             Console.WriteLine(@"|__   __|       | | (_)         | |  / ____|                     ");
@@ -636,7 +640,6 @@ namespace MainGame
             //this for loop starts at the resume player so that if the game is loaded from a save it will start at the correct player
             for (int i = resumePlayer; i < listOfPlayers.Count; i++)
             {
-                ConsoleKeyInfo kb;
                 SaveGame(currentPlayer: i, fileName: "autosave");
 
                 UserInput.Header(inHeader: string.Format("{0}'s Turn", listOfPlayers[i].name), colour: listOfPlayers[i].colour);
@@ -647,16 +650,13 @@ namespace MainGame
                 //MOVEMENT ROLL
                 Console.WriteLine("[MOVEMENT PHASE]");
                 Console.Write("Press the any key to roll the dice or Escape to quit:");
-                kb = Console.ReadKey(true);
 
-                //if the user pressed escape then move the game back to the the main menu.
-                if (kb.Key == ConsoleKey.Escape)
-                {
-                    ExitMidGame(playerNumber: i);
-                    break;
-                }
+                diceRoll = RollDice(playerNumber:i);
 
-                diceRoll = RollDice();
+                //if the dice roll exited the game stop this code
+                if (state == GameState.GAMEMENU)
+                    return;
+
                 Console.WriteLine(" You rolled {0}", diceRoll);
 
                 //move the player depending on how far they rolled
@@ -688,6 +688,10 @@ namespace MainGame
                         TacticalRoll(playerNumber: i);
                     }
                 }
+
+                //if the tacticroll exited the game stop this code
+                if (state == GameState.GAMEMENU)
+                    return;
 
                 //CHECK WON
                 if (listOfPlayers[i].position >= 64)
@@ -755,10 +759,21 @@ namespace MainGame
         /// want to roll)
         /// </summary>
         /// <returns>The dice roll</returns>
-        private static int RollDice()
+        private static int RollDice(int playerNumber)
         {
+            ConsoleKeyInfo kb;
+
             if (debugMode == false)
+            {
+                kb = Console.ReadKey(true);
+
+                if (kb.Key == ConsoleKey.Escape)
+                {
+                    ExitMidGame(playerNumber: playerNumber);
+                }
+
                 return diceRandomiser.Next(1, 7);
+            }
             else
             {
                 Console.Write("Debug Roll: ");
