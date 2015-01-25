@@ -6,13 +6,11 @@ using System.Text;
 using System.Threading;
 using UserInputClass;
 
-namespace MainGame
-{
+namespace MainGame {
     /// <summary>
     /// This holds the main game loop and some methods for presentation
     /// </summary>
-    public class TacticalCheese
-    {
+    public class TacticalCheese {
         #region Global Variables
 
         /// <summary>
@@ -62,8 +60,7 @@ namespace MainGame
         /// The game state enumerator is what I use to track what part of the
         /// game the user wants to be in.
         /// </summary>
-        private enum GameState
-        {
+        private enum GameState {
             /// <summary>
             /// The game menu state makes the game open the main menu method so
             /// the player can play/load the game, toggle the debug settings or
@@ -97,8 +94,7 @@ namespace MainGame
         /// <summary>
         /// The Player struct holds the information regarding each player on the board
         /// </summary>
-        public struct Player
-        {
+        public struct Player {
             /// <summary>
             /// Is the colour of the Ship that the player will have
             /// </summary>
@@ -135,8 +131,7 @@ namespace MainGame
             /// <param name="inPosition">
             /// Sets the position of the player (defaults to 0)
             /// </param>
-            public Player(int inPlayerNumber, string inName, char inShip, int inPosition = 0)
-            {
+            public Player(int inPlayerNumber, string inName, char inShip, int inPosition = 0) {
                 number = inPlayerNumber;
                 name = inName;
                 position = inPosition;
@@ -151,8 +146,7 @@ namespace MainGame
         /// </summary>
         /// <param name="args"></param>
         /// <returns>0 so that i can tell the program exited correctly.</returns>
-        private static int Main(string[] args)
-        {
+        private static int Main(string[] args) {
             //Declare variables (most variables are already declared in the global variable section)
             bool quitGame   = false;
 
@@ -161,18 +155,16 @@ namespace MainGame
             Console.WindowHeight = SCREENHEIGHT;
             Console.WindowWidth = SCREENWIDTH;
             Console.SetBufferSize(SCREENWIDTH, SCREENHEIGHT);
-            
+
             GameBoard.CreateBoard(windowWidth: SCREENWIDTH);
 
             //Now that everything has been setup begin the main loop
-            while (!quitGame)
-            {
+            while (!quitGame) {
                 //Don't clear the board whilst playing the game else the game board and players will get cleared.
                 if (state != GameState.PLAYGAME)
                     Console.Clear();
 
-                switch (state)
-                {
+                switch (state) {
                     case GameState.GAMEMENU:
                         MainMenu(quitSetting: ref quitGame);
                         break;
@@ -189,13 +181,10 @@ namespace MainGame
 
                     case GameState.LOADGAME:
                         //try and load the save file, if that fails send the player to the player selection screen
-                        if (LoadGame())
-                        {
+                        if (LoadGame()) {
                             SetupBoard();
                             state = GameState.PLAYGAME;
-                        }
-                        else
-                        {
+                        } else {
                             Console.WriteLine("Save file loading error (Have you got any save files saved yet?)");
                             Console.ReadKey();
                             state = GameState.GAMEMENU;
@@ -223,8 +212,7 @@ namespace MainGame
         /// <param name="playerNumber">
         /// The number of the player who made the tactical roll
         /// </param>
-        private static void TacticalRoll(int playerNumber)
-        {
+        private static void TacticalRoll(int playerNumber) {
             int tacticDiceRoll;
             int explodedCell;
             int selectedPlayer;
@@ -238,8 +226,7 @@ namespace MainGame
             Console.WriteLine(" You rolled {0}\n", tacticDiceRoll);
 
             //use switch statement to execute a tactic
-            switch (tacticDiceRoll)
-            {
+            switch (tacticDiceRoll) {
                 case 1: // If the player rolls a 1 their rocket engines explode and they are sent back to the start
 
                     Console.WriteLine("Oh no!!! Your engines exploded! (Move back to the start)");
@@ -253,10 +240,8 @@ namespace MainGame
 
                     explodedCell = listOfPlayers[playerNumber].position;
 
-                    for (int i = 0; i < listOfPlayers.Count; i++)
-                    {
-                        if (listOfPlayers[i].position == explodedCell)
-                        {
+                    for (int i = 0; i < listOfPlayers.Count; i++) {
+                        if (listOfPlayers[i].position == explodedCell) {
                             PlayerMoveToCell(playerToMove: i, cellNumber: 0);
                         }
                     }
@@ -269,10 +254,8 @@ namespace MainGame
 
                     explodedCell = listOfPlayers[playerNumber].position;
 
-                    for (int i = 0; i < listOfPlayers.Count; i++)
-                    {
-                        if ((listOfPlayers[i].position == explodedCell) && (listOfPlayers[i].number != listOfPlayers[playerNumber].number))
-                        {
+                    for (int i = 0; i < listOfPlayers.Count; i++) {
+                        if ((listOfPlayers[i].position == explodedCell) && (listOfPlayers[i].number != listOfPlayers[playerNumber].number)) {
                             PlayerMoveToCell(playerToMove: i, cellNumber: 0);
                         }
                     }
@@ -326,8 +309,7 @@ namespace MainGame
         /// This method clears the "information area" of the screen. (The
         /// information area is located under the board area.)
         /// </summary>
-        private static void ClearInformationArea()
-        {
+        private static void ClearInformationArea() {
             int linesToWipe = SCREENHEIGHT - GameBoard.GetEndOfBoard();
 
             Console.SetCursorPosition(0, GameBoard.GetEndOfBoard());
@@ -338,10 +320,8 @@ namespace MainGame
             //if we wipe one line less than we need to (linesToWipe - 1) then we will not push the game
             //out of the buffer, but we won't clear the last line of the console (bad workaround but I
             //never write to the last line so it will work)
-            for (int i = 0; i < linesToWipe - 1; i++)
-            {
-                for (int j = 0; j < SCREENWIDTH; j++)
-                {
+            for (int i = 0; i < linesToWipe - 1; i++) {
+                for (int j = 0; j < SCREENWIDTH; j++) {
                     clearingString.Append(" ");
                 }
             }
@@ -362,8 +342,7 @@ namespace MainGame
         /// The quit setting of the program (will be made true if the user
         /// selects quit)
         /// </param>
-        private static void MainMenu(ref bool quitSetting)
-        {
+        private static void MainMenu(ref bool quitSetting) {
             //setup a string array with the different menu options, and an int to store what the user selects.
             string[] mainMenuItems = new string[4] { "Play Game", "Load Game", "Toggle Debug", "Quit" };
             int menuSelection;
@@ -394,8 +373,7 @@ namespace MainGame
             menuSelection = UserInput.SelectionMenu(selectionArray: mainMenuItems);
 
             //Use a switch statement to act appropriately.
-            switch (menuSelection)
-            {
+            switch (menuSelection) {
                 case 0: //Play Game
                     state = GameState.PLAYERSELECTION;
                     break;
@@ -421,8 +399,7 @@ namespace MainGame
         /// This method draws the game board in the correct place and then draws
         /// the players onto it
         /// </summary>
-        private static void SetupBoard()
-        {
+        private static void SetupBoard() {
             Console.Clear();
             Console.SetCursorPosition(0, 3);
             GameBoard.DrawBoard();
@@ -439,8 +416,7 @@ namespace MainGame
         /// will ask the users how many players will be playing and what each
         /// players name and ship will be.
         /// </summary>
-        private static void CreatePlayers()
-        {
+        private static void CreatePlayers() {
             string name;
             char ship;
             int selectedShip;
@@ -457,8 +433,7 @@ namespace MainGame
             Console.Clear();
 
             //GET INFORMATION FOR EACH INDEVIDUAL PLAYER AND ADD THEM TO THE PLAYER LIST
-            for (int i = 0; i < amountOfPlayers; i++)
-            {
+            for (int i = 0; i < amountOfPlayers; i++) {
                 //get information
                 UserInput.Header("Enter info for Player " + (i + 1));
 
@@ -486,8 +461,7 @@ namespace MainGame
         /// <param name="distance">
         /// The distance you want to move the player (negative to go backwards)
         /// </param>
-        private static void PlayerMover(int playerToMove, int distance)
-        {
+        private static void PlayerMover(int playerToMove, int distance) {
             int animationSpeed;
 
             Console.CursorVisible = false;
@@ -499,13 +473,10 @@ namespace MainGame
                 animationSpeed = 75;
 
             //If the player needs to be moved forward we do the If, but if the player needs to be moved backwards we do the else.
-            if (distance >= 0)
-            {
-                for (int i = 0; i < distance; i++)
-                {
+            if (distance >= 0) {
+                for (int i = 0; i < distance; i++) {
                     //if the user presses a key skip the movement
-                    if (Console.KeyAvailable == true)
-                    {
+                    if (Console.KeyAvailable == true) {
                         animationSpeed = 0;
                         Console.ReadKey(true);
                     }
@@ -520,8 +491,7 @@ namespace MainGame
                     listOfPlayers[playerToMove] = tempPlayer;
 
                     //If the player tries to go backwards beyond 0 keep them at 0. (this is mostly for the debug mode)
-                    if (listOfPlayers[playerToMove].position > 64)
-                    {
+                    if (listOfPlayers[playerToMove].position > 64) {
                         break;
                     }
 
@@ -531,14 +501,10 @@ namespace MainGame
                     if (animationSpeed != 0)
                         Thread.Sleep(animationSpeed);
                 }
-            }
-            else
-            {
-                for (int i = 0; i > distance; i--)
-                {
+            } else {
+                for (int i = 0; i > distance; i--) {
                     //if the user presses a key skip the movement
-                    if (Console.KeyAvailable == true)
-                    {
+                    if (Console.KeyAvailable == true) {
                         animationSpeed = 0;
                         Console.ReadKey(true);
                     }
@@ -552,8 +518,7 @@ namespace MainGame
                     tempPlayer.position--;
 
                     //If the player tries to go backwards beyond 0 keep them at 0. (this is mostly for the debug mode)
-                    if (tempPlayer.position < 0)
-                    {
+                    if (tempPlayer.position < 0) {
                         break;
                     }
 
@@ -578,8 +543,7 @@ namespace MainGame
         /// </summary>
         /// <param name="playerToMove">The player to move</param>
         /// <param name="cellNumber">The cell to move the player to</param>
-        private static void PlayerMoveToCell(int playerToMove, int cellNumber)
-        {
+        private static void PlayerMoveToCell(int playerToMove, int cellNumber) {
             int distanceToTravel;
 
             if (cellNumber < 0 || cellNumber > 64)
@@ -597,15 +561,13 @@ namespace MainGame
         /// player's ship, name and colour. The user can select one of the players
         /// </summary>
         /// <returns>The player that the user selected</returns>
-        private static int PlayerSelector()
-        {
+        private static int PlayerSelector() {
             //make a string array with enough elements to hold all the player names
             string [] playerNamesArray = new string[listOfPlayers.Count];
             int selectedPlayer;
 
             //make array of player ships, names and colours and format them correctly
-            for (int i = 0; i < listOfPlayers.Count; i++)
-            {
+            for (int i = 0; i < listOfPlayers.Count; i++) {
                 playerNamesArray[i] = string.Format(
                     " {0} | {1,-20} | {2}",
                     listOfPlayers[i].ship,
@@ -629,13 +591,11 @@ namespace MainGame
         /// This method is what organises each turn of the game and holds the
         /// vast majority of the game logic
         /// </summary>
-        private static void GameTurn()
-        {
+        private static void GameTurn() {
             int diceRoll;
 
             //this for loop starts at the resume player so that if the game is loaded from a save it will start at the correct player
-            for (int i = resumePlayer; i < listOfPlayers.Count; i++)
-            {
+            for (int i = resumePlayer; i < listOfPlayers.Count; i++) {
                 ConsoleKeyInfo kb;
                 SaveGame(currentPlayer: i, fileName: "autosave");
 
@@ -650,8 +610,7 @@ namespace MainGame
                 kb = Console.ReadKey(true);
 
                 //if the user pressed escape then move the game back to the the main menu.
-                if (kb.Key == ConsoleKey.Escape)
-                {
+                if (kb.Key == ConsoleKey.Escape) {
                     ExitMidGame(playerNumber: i);
                     break;
                 }
@@ -663,8 +622,7 @@ namespace MainGame
                 PlayerMover(playerToMove: i, distance: diceRoll);
 
                 //CHECK WON
-                if (listOfPlayers[i].position >= 64)
-                {
+                if (listOfPlayers[i].position >= 64) {
                     winnerName = listOfPlayers[i].name;
                     state = GameState.GAMEOVER;
                     break;
@@ -673,25 +631,20 @@ namespace MainGame
                 //TACTICS LOGIC
                 //If player is on a cheese square force tactics, else ask if the user wants to roll anyway
                 Console.WriteLine("\n[TACTICS PHASE]");
-                if (GameBoard.IsCheese(listOfPlayers[i].position))
-                {
+                if (GameBoard.IsCheese(listOfPlayers[i].position)) {
                     Console.WriteLine("You landed on a cheese square!!!, you must roll tactical dice");
                     TacticalRoll(playerNumber: i);
-                }
-                else
-                {
+                } else {
                     //Ask for tactical dice roll (if it has not been forced on the player)
                     Console.WriteLine("Do you want to roll the tactical dice?");
 
-                    if (UserInput.YesNo())
-                    {
+                    if (UserInput.YesNo()) {
                         TacticalRoll(playerNumber: i);
                     }
                 }
 
                 //CHECK WON
-                if (listOfPlayers[i].position >= 64)
-                {
+                if (listOfPlayers[i].position >= 64) {
                     winnerName = listOfPlayers[i].name;
                     state = GameState.GAMEOVER;
                     break;
@@ -712,8 +665,7 @@ namespace MainGame
         /// <param name="playerNumber">
         /// the player number that the game was exited on
         /// </param>
-        private static void ExitMidGame(int playerNumber)
-        {
+        private static void ExitMidGame(int playerNumber) {
             string saveFileName;
             Console.Clear();
 
@@ -721,8 +673,7 @@ namespace MainGame
 
             Console.WriteLine("Do you want to save this game for later?");
 
-            if (UserInput.YesNo())
-            {
+            if (UserInput.YesNo()) {
                 Console.Write("\nEnter file name(max 20 characters): ");
                 saveFileName = UserInput.ValidString(minLength: 1, maxLength: 20);
                 SaveGame(currentPlayer: playerNumber, fileName: saveFileName);
@@ -736,11 +687,9 @@ namespace MainGame
         /// the game. so that when the user loads the game again they wont have
         /// to retype everyones name into the system.
         /// </summary>
-        private static void ResetGame()
-        {
+        private static void ResetGame() {
             //Set every players position to 0 and then save the game so that you can play the game again using load
-            for (int i = 0; i < listOfPlayers.Count; i++)
-            {
+            for (int i = 0; i < listOfPlayers.Count; i++) {
                 Player tempPlayer = listOfPlayers[i];
                 tempPlayer.position = 0;
                 listOfPlayers[i] = tempPlayer;
@@ -755,12 +704,10 @@ namespace MainGame
         /// want to roll)
         /// </summary>
         /// <returns>The dice roll</returns>
-        private static int RollDice()
-        {
+        private static int RollDice() {
             if (debugMode == false)
                 return diceRandomiser.Next(1, 7);
-            else
-            {
+            else {
                 Console.Write("Debug Roll: ");
                 return UserInput.ValidInteger();
             }
@@ -777,8 +724,7 @@ namespace MainGame
         /// file read errors then it will return false.
         /// </summary>
         /// <returns>True if file read was successful and false if it failed</returns>
-        private static bool LoadGame()
-        {
+        private static bool LoadGame() {
             StreamReader reader = null;
             string[] filePaths;
             string fileSelected;
@@ -791,12 +737,9 @@ namespace MainGame
             /*we need to check if there is a save directory made for tyhe player to load from.
             else we need to return false to indicate file loading error.
              */
-            if (Directory.Exists(@"saves\"))
-            {
+            if (Directory.Exists(@"saves\")) {
                 filePaths = Directory.GetFiles(@"saves\", "*.tcr");
-            }
-            else
-            {
+            } else {
                 return false;
             }
 
@@ -810,8 +753,7 @@ namespace MainGame
             //this makes the menu that prints out the available files, and it assigned the selected file to fileSelected
             fileSelected = filePaths[UserInput.SelectionMenu(selectionArray: filePaths)];
 
-            try
-            {
+            try {
                 //Load the file that the user selected
                 reader = new StreamReader(fileSelected);
 
@@ -828,13 +770,12 @@ namespace MainGame
                     throw new Exception("Save file error: invalid resume player");
 
                 //construct the player list
-                for (int i = 0; i < amountOfPlayers; i++)
-                {
+                for (int i = 0; i < amountOfPlayers; i++) {
                     name = reader.ReadLine();
 
                     //error if the user has edited the save file 
-                    if(name.Length > 20)
-                        throw new Exception ("Save file error: Name in save file is too long");
+                    if (name.Length > 20)
+                        throw new Exception("Save file error: Name in save file is too long");
 
                     tempShip = reader.ReadLine();
                     ship = tempShip[0];
@@ -845,14 +786,10 @@ namespace MainGame
                     var p = new Player(inPlayerNumber: i, inName: name, inShip: ship, inPosition: position);
                     listOfPlayers.Add(p);
                 }
-            }
-            catch
-            {
+            } catch {
                 //return false to indicate loading failed
                 return false;
-            }
-            finally
-            {
+            } finally {
                 //this makes sure the reader closes no matter what happens
                 if (reader != null)
                     reader.Close();
@@ -871,11 +808,9 @@ namespace MainGame
         /// The player turn that the game was saved on
         /// </param>
         /// <param name="fileName">The name of the save file</param>
-        private static void SaveGame(int currentPlayer, string fileName)
-        {
+        private static void SaveGame(int currentPlayer, string fileName) {
             //first we need to check is the save game directory has been setup.
-            if (!Directory.Exists(@"saves\"))
-            {
+            if (!Directory.Exists(@"saves\")) {
                 Directory.CreateDirectory(@"saves\");
             }
 
@@ -887,20 +822,17 @@ namespace MainGame
             outputBuffer += currentPlayer + "\n";
 
             //Convert list of players into a string so we only need to write to a file once (not 16 times)
-            for (int i = 0; i < listOfPlayers.Count; i++)
-            {
+            for (int i = 0; i < listOfPlayers.Count; i++) {
                 outputBuffer += listOfPlayers[i].name + "\n";
                 outputBuffer += listOfPlayers[i].ship + "\n";
                 outputBuffer += listOfPlayers[i].position + "\n";
             }
 
-            try
-            {
+            try {
                 writer = new StreamWriter(string.Format(@"saves\{0}.tcr", fileName));
                 writer.Write(outputBuffer);
                 writer.Close();
-            }
-            catch //this will error if the file name has escape characters in it.
+            } catch //this will error if the file name has escape characters in it.
             {
                 if (writer != null)
                     writer.Close();

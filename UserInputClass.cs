@@ -7,8 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace UserInputClass
-{
+namespace UserInputClass {
     /// <summary>
     /// This is the menu system that I have been developing during the fenner
     /// labs to help me with my cinema entry program, I have tried my best to
@@ -18,8 +17,7 @@ namespace UserInputClass
     /// This class mostly deals with validation of input and making user input
     /// easier through selection menus.
     /// </summary>
-    internal static class UserInput
-    {
+    internal static class UserInput {
         /// <summary>
         /// Takes a string that the user wrote on the screen and clears it,
         /// </summary>
@@ -32,8 +30,7 @@ namespace UserInputClass
         /// top of the console)
         /// </param>
         /// <param name="inString">The string to be cleared from the screen</param>
-        public static void ClearInputString(int inStartOffsetL, int inStartOffsetT, string inString)
-        {
+        public static void ClearInputString(int inStartOffsetL, int inStartOffsetT, string inString) {
             int whitespace = 0;
 
             //move the cursor to the start of where the user began inputting
@@ -42,22 +39,19 @@ namespace UserInputClass
             //Now we clear what the user wrote by printing spaces over it
 
             //needs to loop once per character in the string (subtract tab characters as we handle tabs later)
-            for (int i = 0; i < (inString.Length - inString.Count(tabs => tabs == '\t')); i++)
-            {
+            for (int i = 0; i < (inString.Length - inString.Count(tabs => tabs == '\t')); i++) {
                 whitespace += 1;
             }
 
             //this handles and tab characters that have been inputted 
-            for (int i = 0; i < inString.Count(tabs => tabs == '\t'); i++)
-            {
+            for (int i = 0; i < inString.Count(tabs => tabs == '\t'); i++) {
                 whitespace += 8;
             }
 
             //generate a string that is all spaces and is the length of the whitespace needed.
             StringBuilder ClearingString = new StringBuilder(string.Empty, whitespace);
 
-            for (int i = 0; i < whitespace ; i++)
-            {
+            for (int i = 0; i < whitespace; i++) {
                 ClearingString.Insert(i, " ");
             }
 
@@ -75,11 +69,10 @@ namespace UserInputClass
         /// </summary>
         /// <param name="inHeader">Title of the header to be passed in</param>
         /// <param name="colour">Colour of the header (default is red)</param>
-        public static void Header(string inHeader, int colour = 12)
-        {
+        public static void Header(string inHeader, int colour = 12) {
             //Declare Variables
             int whitespace = 0;
-            StringBuilder outHeader = new StringBuilder (string.Empty);
+            StringBuilder outHeader = new StringBuilder(string.Empty);
             int startTOffset, startLOffset;
 
             //Grab the curser so we can move back to its location after we finish
@@ -150,13 +143,11 @@ namespace UserInputClass
         /// </summary>
         /// <param name="stringList">List to add the films to</param>
         /// <param name="fileName">File name to read from (include .txt)</param>
-        public static void ReadFile(string fileName, List<string> stringList)
-        {
+        public static void ReadFile(string fileName, List<string> stringList) {
             StreamReader reader = new StreamReader(fileName);
             string line;
 
-            while (reader.EndOfStream == false)
-            {
+            while (reader.EndOfStream == false) {
                 line = reader.ReadLine();
                 stringList.Add(line);
             }
@@ -168,8 +159,7 @@ namespace UserInputClass
         /// select either yes or no.
         /// </summary>
         /// <returns>Boolen yes=true no=false</returns>
-        public static bool YesNo()
-        {
+        public static bool YesNo() {
             // Make a selection menu with the option  of yes or no, then return a bool result depending on what the user selected
             if (UserInput.SelectionMenu(new string[2] { "Yes", "No" }) == 0)
                 return true;
@@ -182,8 +172,7 @@ namespace UserInputClass
         /// user to write something in (so you dont get any blank strings)
         /// </summary>
         /// <returns>The string the user entered</returns>
-        public static string ValidString(int minLength, int maxLength)
-        {
+        public static string ValidString(int minLength, int maxLength) {
             if (minLength >= maxLength)
                 throw new Exception("Min should not be bigger than max");
 
@@ -195,8 +184,7 @@ namespace UserInputClass
             startOffsetT = Console.CursorTop;
             startOffsetL = Console.CursorLeft;
 
-            while (stringValid == false)
-            {
+            while (stringValid == false) {
                 outputString = Console.ReadLine();
 
                 if (outputString.Length < minLength || outputString.Length > maxLength)
@@ -208,7 +196,7 @@ namespace UserInputClass
             return outputString;
         }
 
-        #region Integer Input / Validation 
+        #region Integer Input / Validation
 
         /// <summary>
         /// A method that takes a minimum number and a maximum number and allows
@@ -219,15 +207,13 @@ namespace UserInputClass
         /// <param name="min">The minimum value for the number</param>
         /// <param name="max">The maximum value for the number</param>
         /// <returns>the integer that the user inputted</returns>
-        public static int ReadRange(int min, int max)
-        {
+        public static int ReadRange(int min, int max) {
             int output;
             //Throw an exception if the programmer puts a bigger minimum than max (to stop infinate loop)
             if (min >= max)
                 throw new Exception("Min should not be bigger than max");
 
-            while (true)
-            {
+            while (true) {
                 int startOffsetT, startOffsetL;
                 //get the start point for the cursor
                 startOffsetT = Console.CursorTop;
@@ -237,8 +223,7 @@ namespace UserInputClass
 
                 if (output >= min && output <= max)
                     break;
-                else
-                {
+                else {
                     //if number is out of range then restart the input
                     Console.SetCursorPosition(startOffsetL, startOffsetT);
                     for (int i = 0; i < output.ToString().Length; i++)
@@ -255,8 +240,7 @@ namespace UserInputClass
         /// this at 1am
         /// </summary>
         /// <returns>the integer the user inputs</returns>
-        public static int ValidInteger()
-        {
+        public static int ValidInteger() {
             string outputString;
             bool validOutput = false;
             int output = 0;
@@ -266,12 +250,10 @@ namespace UserInputClass
             startOffsetT = Console.CursorTop;
             startOffsetL = Console.CursorLeft;
 
-            while (!validOutput)
-            {
+            while (!validOutput) {
                 //Get user input and place it in a string
                 outputString = Console.ReadLine();
-                try
-                {
+                try {
                     //-0 isn't handled well when converting to an integer so we need to throw an exception
                     if (outputString == "-0")
                         throw new Exception("-0 wont convert to integer correctly");
@@ -280,9 +262,7 @@ namespace UserInputClass
                     output = int.Parse(outputString);
                     //this set will only be reached if int.parse dosn't throw an exception
                     validOutput = true;
-                }
-                catch
-                {
+                } catch {
                 }
 
                 //Clear what the user wrote
@@ -312,8 +292,7 @@ namespace UserInputClass
         ///<param name="padding">How much space to pad arounf the menu</param>
         /// <returns>integer that is the index of the item the user selected.
         /// </returns>
-        public static int SelectionMenu(string[] selectionArray, int padding = 0)
-        {
+        public static int SelectionMenu(string[] selectionArray, int padding = 0) {
             bool loopComplete = false;
             int topOffset = Console.CursorTop;
             int bottomOffset = 0;
@@ -323,33 +302,24 @@ namespace UserInputClass
             Console.CursorVisible = false;
 
             //this will resise the console if the amount of elements in the list are too big
-            if ((selectionArray.Length + padding) > Console.WindowHeight)
-            {
-                try
-                {
+            if ((selectionArray.Length + padding) > Console.WindowHeight) {
+                try {
                     Console.SetWindowSize(80, (selectionArray.Length + padding));
-                }
-                catch
-                {
+                } catch {
                     throw new Exception("Too many items in the array to display");
                 }
             }
 
-            while (!loopComplete)
-            {
+            while (!loopComplete) {
                 //This for loop prints the array out
-                for (int i = 0; i < selectionArray.Length; i++)
-                {
-                    if (i == selectedItem)
-                    {
+                for (int i = 0; i < selectionArray.Length; i++) {
+                    if (i == selectedItem) {
                         //This section is what highlights the selected item
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("-" + selectionArray[i]);
                         Console.ResetColor();
-                    }
-                    else
-                    {
+                    } else {
                         //this section is what prints unselected items
                         Console.WriteLine("-" + selectionArray[i]);
                     }
@@ -361,8 +331,7 @@ namespace UserInputClass
                 kb = Console.ReadKey(true);
                 //This switch statement parses the user input and acts appropriatly
                 //to alter what film is selected / what film will be outputed
-                switch (kb.Key)
-                {
+                switch (kb.Key) {
                     case ConsoleKey.UpArrow:
                         if (selectedItem > 0)
                             selectedItem--;
@@ -405,8 +374,7 @@ namespace UserInputClass
         ///<param name="padding">How much space to pad arounf the menu</param>
         /// <returns>integer that is the index of the item the user selected.
         /// </returns>
-        public static int SelectionMenu(char[] selectionArray, int padding = 0)
-        {
+        public static int SelectionMenu(char[] selectionArray, int padding = 0) {
             bool loopComplete = false;
             int topOffset = Console.CursorTop;
             int bottomOffset = 0;
@@ -416,33 +384,24 @@ namespace UserInputClass
             Console.CursorVisible = false;
 
             //this will resise the console if the amount of elements in the list are too big
-            if ((selectionArray.Length + padding) > Console.WindowHeight)
-            {
-                try
-                {
+            if ((selectionArray.Length + padding) > Console.WindowHeight) {
+                try {
                     Console.SetWindowSize(80, (selectionArray.Length + padding));
-                }
-                catch
-                {
+                } catch {
                     throw new Exception("Too many items in the array to display");
                 }
             }
 
-            while (!loopComplete)
-            {
+            while (!loopComplete) {
                 //This for loop prints the array
-                for (int i = 0; i < selectionArray.Length; i++)
-                {
-                    if (i == selectedItem)
-                    {
+                for (int i = 0; i < selectionArray.Length; i++) {
+                    if (i == selectedItem) {
                         //This section is what highlights the selected item
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("-" + selectionArray[i]);
                         Console.ResetColor();
-                    }
-                    else
-                    {
+                    } else {
                         //this section is what prints unselected items
                         Console.WriteLine("-" + selectionArray[i]);
                     }
@@ -454,8 +413,7 @@ namespace UserInputClass
                 kb = Console.ReadKey(true);
                 //This switch statement parses the user input and acts appropriatly
                 //to alter what film is selected / what film will be outputed
-                switch (kb.Key)
-                {
+                switch (kb.Key) {
                     case ConsoleKey.UpArrow:
                         if (selectedItem > 0)
                             selectedItem--;
@@ -496,8 +454,7 @@ namespace UserInputClass
         /// </param>
         /// <param name="padding">How much space to pad arounf the menu</param>
         /// <returns>integer that is the index of the item the user selected.</returns>
-        public static int SelectionMenu(List<string> selectionList, int padding = 0)
-        {
+        public static int SelectionMenu(List<string> selectionList, int padding = 0) {
             bool loopComplete = false;
             int topOffset = Console.CursorTop;
             int bottomOffset = 0;
@@ -507,33 +464,24 @@ namespace UserInputClass
             Console.CursorVisible = false;
 
             //this will resise the console if the amount of elements in the list are too big
-            if ((selectionList.Count + padding) > Console.WindowHeight)
-            {
-                try
-                {
+            if ((selectionList.Count + padding) > Console.WindowHeight) {
+                try {
                     Console.SetWindowSize(80, (selectionList.Count + padding));
-                }
-                catch
-                {
+                } catch {
                     throw new Exception("Too many items in the list to display");
                 }
             }
 
-            while (!loopComplete)
-            {
+            while (!loopComplete) {
                 //This for loop prints list
-                for (int i = 0; i < selectionList.Count; i++)
-                {
-                    if (i == selectedItem)
-                    {
+                for (int i = 0; i < selectionList.Count; i++) {
+                    if (i == selectedItem) {
                         //This section is what highlights the selected item
                         Console.BackgroundColor = ConsoleColor.Gray;
                         Console.ForegroundColor = ConsoleColor.Black;
                         Console.WriteLine("-" + selectionList[i]);
                         Console.ResetColor();
-                    }
-                    else
-                    {
+                    } else {
                         //this section is what prints unselected items
                         Console.WriteLine("-" + selectionList[i]);
                     }
@@ -545,8 +493,7 @@ namespace UserInputClass
                 kb = Console.ReadKey(true);
                 //This switch statement parses the user input and acts appropriatly
                 //to alter what film is selected / what film will be outputed
-                switch (kb.Key)
-                {
+                switch (kb.Key) {
                     case ConsoleKey.UpArrow:
                         if (selectedItem > 0)
                             selectedItem--;

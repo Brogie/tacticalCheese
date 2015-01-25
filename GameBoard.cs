@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace Gameboard_Drawing
-{
+namespace Gameboard_Drawing {
     /// <summary>
     /// This method library is for drawing the board and players. It is only
     /// able to draw the players, it cannot move them around the board.
     /// </summary>
-    internal class GameBoard
-    {
+    internal class GameBoard {
         #region Global Variables
 
         /// <summary>
@@ -39,13 +37,11 @@ namespace Gameboard_Drawing
         /// Clears one cell from the board.
         /// </summary>
         /// <param name="position">The cell you want to clear</param>
-        static public void ClearOneCell(int position)
-        {
+        static public void ClearOneCell(int position) {
             int cursorTop = Console.CursorTop;
             int cursorLeft = Console.CursorLeft;
 
-            if (position > 0 && position <= 64)
-            {
+            if (position > 0 && position <= 64) {
                 LocateCell(toFind: position, isPlayer: true);
                 Console.Write("        ");
             }
@@ -56,13 +52,11 @@ namespace Gameboard_Drawing
         /// <summary>
         /// This clears all the cells on the board.
         /// </summary>
-        static public void ClearAllCells()
-        {
+        static public void ClearAllCells() {
             int cursorTop = Console.CursorTop;
             int cursorLeft = Console.CursorLeft;
 
-            for (int i = 1; i <= 64; i++)
-            {
+            for (int i = 1; i <= 64; i++) {
                 LocateCell(toFind: i, isPlayer: true);
                 Console.Write("        ");
             }
@@ -73,8 +67,7 @@ namespace Gameboard_Drawing
         /// <summary>
         /// This will create the game board as a string.
         /// </summary>
-        static public void CreateBoard(int windowWidth)
-        {
+        static public void CreateBoard(int windowWidth) {
             string whitespaceLeft = "";
             string whitespaceRight = "";
 
@@ -93,19 +86,15 @@ namespace Gameboard_Drawing
              * call for each line.*/
             board = String.Format("{0}╔════════╦════════╦════════╦════════╦════════╦════════╦════════╦════════╗{1}", whitespaceLeft, whitespaceRight);
 
-            for (int i = 0; i < 8; i++)
-            {
+            for (int i = 0; i < 8; i++) {
                 board += String.Join("",
                 String.Format("{0}║        ║        ║        ║        ║        ║        ║        ║        ║{1}", whitespaceLeft, whitespaceRight),
                 String.Format("{0}║────────║────────║────────║────────║────────║────────║────────║────────║{1}", whitespaceLeft, whitespaceRight),
                 String.Format("{0}║        ║        ║        ║        ║        ║        ║        ║        ║{1}", whitespaceLeft, whitespaceRight));
 
-                if (i == 7)
-                {
+                if (i == 7) {
                     board += String.Format("{0}╚════════╩════════╩════════╩════════╩════════╩════════╩════════╩════════╝{1}", whitespaceLeft, whitespaceRight);
-                }
-                else
-                {
+                } else {
                     board += String.Format("{0}╟════════╫════════╫════════╫════════╫════════╫════════╫════════╫════════╢{1}", whitespaceLeft, whitespaceRight);
                 }
             }
@@ -114,8 +103,7 @@ namespace Gameboard_Drawing
         /// <summary>
         /// Prints out the board, this is not complete yet.
         /// </summary>
-        static public void DrawBoard()
-        {
+        static public void DrawBoard() {
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
 
@@ -141,8 +129,7 @@ namespace Gameboard_Drawing
 
             Console.SetCursorPosition(0, boardEndTop);
 
-            for (int i = 0; i < Console.WindowWidth; i++)
-            {
+            for (int i = 0; i < Console.WindowWidth; i++) {
                 Console.Write("─");
             }
             Console.ResetColor();
@@ -153,8 +140,7 @@ namespace Gameboard_Drawing
         /// players in the correct location
         /// </summary>
         /// <param name="players">list of all the players in the game</param>
-        static public void DrawPlayers(List<TacticalCheese.Player> players)
-        {
+        static public void DrawPlayers(List<TacticalCheese.Player> players) {
             //we need to record the cursor location so we can put it back at the end of the method
             int cursorTop = Console.CursorTop;
             int cursorLeft = Console.CursorLeft;
@@ -168,12 +154,10 @@ namespace Gameboard_Drawing
             //}
 
             //Now we draw each player character in their own colour
-            foreach (TacticalCheese.Player p in players)
-            {
+            foreach (TacticalCheese.Player p in players) {
                 //We locate the cell that the player is in, then we offest it  by 2+playerNumber so that
                 //multiple players can be in the same space without being printed over eachother
-                if (p.position > 0 && p.position <= 64)
-                {
+                if (p.position > 0 && p.position <= 64) {
                     LocateCell(toFind: p.position, isPlayer: true);
                     Console.CursorLeft = Console.CursorLeft + (2 + p.number);
 
@@ -194,10 +178,8 @@ namespace Gameboard_Drawing
             Console.Write("[Off the Board: ");
 
             //if a player is on position 0 (off the board) then draw them
-            foreach (TacticalCheese.Player p in players)
-            {
-                if (p.position == 0)
-                {
+            foreach (TacticalCheese.Player p in players) {
+                if (p.position == 0) {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = (ConsoleColor)(p.colour);
                     Console.Write(p.ship);
@@ -225,8 +207,7 @@ namespace Gameboard_Drawing
         /// <returns>
         /// integer representing where the board ends (from the top of the console)
         /// </returns>
-        static public int GetEndOfBoard()
-        {
+        static public int GetEndOfBoard() {
             return boardEndTop + 1;
         }
 
@@ -235,10 +216,8 @@ namespace Gameboard_Drawing
         /// </summary>
         /// <param name="cellNumber">The cell you want to check</param>
         /// <returns>True is cell is cheese and false if cell is not cheese</returns>
-        static public bool IsCheese(int cellNumber)
-        {
-            switch (cellNumber)
-            {
+        static public bool IsCheese(int cellNumber) {
+            switch (cellNumber) {
                 case 8:
                 case 15:
                 case 19:
@@ -258,24 +237,19 @@ namespace Gameboard_Drawing
         /// draws the numbers onto the board (will probably merge this with
         /// drawboard as it no longer need parameters passing to it
         /// </summary>
-        static private void DrawNumbers()
-        {
+        static private void DrawNumbers() {
             //Loop for each cell on the board (start from 1 as the cells start from one)
-            for (int i = 1; i <= 64; i++)
-            {
+            for (int i = 1; i <= 64; i++) {
                 //Locate the start of the cell
                 LocateCell(toFind: i, isPlayer: false);
 
                 //input the cell number using fancy printing for extra flair
-                if (IsCheese(cellNumber: i))
-                {
+                if (IsCheese(cellNumber: i)) {
                     Console.ForegroundColor = ConsoleColor.Black;
                     Console.BackgroundColor = ConsoleColor.Yellow;
                     Console.Write("   {0:00}   ", i);
                     Console.ResetColor();
-                }
-                else
-                {
+                } else {
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Console.BackgroundColor = ConsoleColor.DarkBlue;
                     Console.Write("   {0:00}   ", i);
@@ -293,8 +267,7 @@ namespace Gameboard_Drawing
         /// <param name="isPlayer">
         /// if you want to select the player area (defaults to true)
         /// </param>
-        static private void LocateCell(int toFind, bool isPlayer)
-        {
+        static private void LocateCell(int toFind, bool isPlayer) {
             int row, column;
 
             //LOCATE X AND Y CO-ORDINATE OF THE CELL
