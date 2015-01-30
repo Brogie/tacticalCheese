@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 
 namespace UserInputClass {
+
     /// <summary>
     /// This is the menu system that I have been developing during the fenner
     /// labs to help me with my cinema entry program, I have tried my best to
@@ -18,6 +19,7 @@ namespace UserInputClass {
     /// easier through selection menus.
     /// </summary>
     internal static class UserInput {
+
         /// <summary>
         /// Takes a string that the user wrote on the screen and clears it,
         /// </summary>
@@ -43,7 +45,7 @@ namespace UserInputClass {
                 whitespace += 1;
             }
 
-            //this handles and tab characters that have been inputted 
+            //this handles and tab characters that have been inputted
             for (int i = 0; i < inString.Count(tabs => tabs == '\t'); i++) {
                 whitespace += 8;
             }
@@ -60,7 +62,6 @@ namespace UserInputClass {
 
             //finally reset the curser to allow the user to reinput the number
             Console.SetCursorPosition(inStartOffsetL, inStartOffsetT);
-
         }
 
         /// <summary>
@@ -155,27 +156,14 @@ namespace UserInputClass {
         }
 
         /// <summary>
-        /// Writes a menu to the screen that gives the user the ablility to
-        /// select either yes or no.
-        /// </summary>
-        /// <returns>Boolen yes=true no=false</returns>
-        public static bool YesNo() {
-            // Make a selection menu with the option  of yes or no, then return a bool result depending on what the user selected
-            if (UserInput.SelectionMenu(new string[2] { "Yes", "No" }) == 0)
-                return true;
-            else
-                return false;
-        }
-
-        /// <summary>
         /// This method will get the user to write a string and will force the
         /// user to write something in (so you dont get any blank strings)
         /// </summary>
         /// <returns>The string the user entered</returns>
         public static string ValidString(int minLength, int maxLength) {
-            if (minLength >= maxLength)
+            if (minLength >= maxLength) {
                 throw new Exception("Min should not be bigger than max");
-
+            }
             int startOffsetT, startOffsetL;
             bool stringValid = false;
             string outputString = "";
@@ -187,13 +175,29 @@ namespace UserInputClass {
             while (stringValid == false) {
                 outputString = Console.ReadLine();
 
-                if (outputString.Length < minLength || outputString.Length > maxLength)
+                if (outputString.Length < minLength || outputString.Length > maxLength) {
                     ClearInputString(inStartOffsetL: startOffsetL, inStartOffsetT: startOffsetT, inString: outputString);
-                else
+                } else {
                     stringValid = true;
+                }
             }
 
             return outputString;
+        }
+
+        /// <summary>
+        /// Writes a menu to the screen that gives the user the ablility to
+        /// select either yes or no.
+        /// </summary>
+        /// <returns>Boolen yes=true no=false</returns>
+        public static bool YesNo() {
+            // Make a selection menu with the option of yes or no, then return a
+            // bool result depending on what the user selected
+            if (UserInput.SelectionMenu(new string[2] { "Yes", "No" }) == 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         #region Integer Input / Validation
@@ -210,9 +214,9 @@ namespace UserInputClass {
         public static int ReadRange(int min, int max) {
             int output;
             //Throw an exception if the programmer puts a bigger minimum than max (to stop infinate loop)
-            if (min >= max)
+            if (min >= max) {
                 throw new Exception("Min should not be bigger than max");
-
+            }
             while (true) {
                 int startOffsetT, startOffsetL;
                 //get the start point for the cursor
@@ -221,9 +225,9 @@ namespace UserInputClass {
                 //get user input
                 output = ValidInteger();
 
-                if (output >= min && output <= max)
+                if (output >= min && output <= max) {
                     break;
-                else {
+                } else {
                     //if number is out of range then restart the input
                     Console.SetCursorPosition(startOffsetL, startOffsetT);
                     for (int i = 0; i < output.ToString().Length; i++)
@@ -255,9 +259,9 @@ namespace UserInputClass {
                 outputString = Console.ReadLine();
                 try {
                     //-0 isn't handled well when converting to an integer so we need to throw an exception
-                    if (outputString == "-0")
+                    if (outputString == "-0") {
                         throw new Exception("-0 wont convert to integer correctly");
-
+                    }
                     //This will parse the string into the output int, if it works then the output will be valid
                     output = int.Parse(outputString);
                     //this set will only be reached if int.parse dosn't throw an exception
@@ -333,17 +337,19 @@ namespace UserInputClass {
                 //to alter what film is selected / what film will be outputed
                 switch (kb.Key) {
                     case ConsoleKey.UpArrow:
-                        if (selectedItem > 0)
+                        if (selectedItem > 0) {
                             selectedItem--;
-                        else
+                        } else {
                             selectedItem = (selectionArray.Length - 1);
+                        }
                         break;
 
                     case ConsoleKey.DownArrow:
-                        if (selectedItem < (selectionArray.Length - 1))
+                        if (selectedItem < (selectionArray.Length - 1)) {
                             selectedItem++;
-                        else
+                        } else {
                             selectedItem = 0;
+                        }
                         break;
 
                     case ConsoleKey.Enter:
@@ -415,17 +421,19 @@ namespace UserInputClass {
                 //to alter what film is selected / what film will be outputed
                 switch (kb.Key) {
                     case ConsoleKey.UpArrow:
-                        if (selectedItem > 0)
+                        if (selectedItem > 0) {
                             selectedItem--;
-                        else
+                        } else {
                             selectedItem = (selectionArray.Length - 1);
+                        }
                         break;
 
                     case ConsoleKey.DownArrow:
-                        if (selectedItem < (selectionArray.Length - 1))
+                        if (selectedItem < (selectionArray.Length - 1)) {
                             selectedItem++;
-                        else
+                        } else {
                             selectedItem = 0;
+                        }
                         break;
 
                     case ConsoleKey.Enter:
@@ -495,17 +503,19 @@ namespace UserInputClass {
                 //to alter what film is selected / what film will be outputed
                 switch (kb.Key) {
                     case ConsoleKey.UpArrow:
-                        if (selectedItem > 0)
+                        if (selectedItem > 0) {
                             selectedItem--;
-                        else
+                        } else {
                             selectedItem = (selectionList.Count - 1);
+                        }
                         break;
 
                     case ConsoleKey.DownArrow:
-                        if (selectedItem < (selectionList.Count - 1))
+                        if (selectedItem < (selectionList.Count - 1)) {
                             selectedItem++;
-                        else
+                        } else {
                             selectedItem = 0;
+                        }
                         break;
 
                     case ConsoleKey.Enter:

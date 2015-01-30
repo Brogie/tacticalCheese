@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 
 namespace Gameboard_Drawing {
+
     /// <summary>
     /// This method library is for drawing the board and players. It is only
     /// able to draw the players, it cannot move them around the board.
     /// </summary>
     internal class GameBoard {
+
         #region Global Variables
 
         /// <summary>
@@ -31,7 +33,23 @@ namespace Gameboard_Drawing {
         /// This will store where the top of the board starts in the Y axis
         /// </summary>
         static private int boardOriginTop;
-        #endregion
+
+        #endregion Global Variables
+
+        /// <summary>
+        /// This clears all the cells on the board.
+        /// </summary>
+        static public void ClearAllCells() {
+            int cursorTop = Console.CursorTop;
+            int cursorLeft = Console.CursorLeft;
+
+            for (int i = 1; i <= 64; i++) {
+                LocateCell(toFind: i, isPlayer: true);
+                Console.Write("        ");
+            }
+
+            Console.SetCursorPosition(cursorLeft, cursorTop);
+        }
 
         /// <summary>
         /// Clears one cell from the board.
@@ -50,21 +68,6 @@ namespace Gameboard_Drawing {
         }
 
         /// <summary>
-        /// This clears all the cells on the board.
-        /// </summary>
-        static public void ClearAllCells() {
-            int cursorTop = Console.CursorTop;
-            int cursorLeft = Console.CursorLeft;
-
-            for (int i = 1; i <= 64; i++) {
-                LocateCell(toFind: i, isPlayer: true);
-                Console.Write("        ");
-            }
-
-            Console.SetCursorPosition(cursorLeft, cursorTop);
-        }
-
-        /// <summary>
         /// This will create the game board as a string.
         /// </summary>
         static public void CreateBoard(int windowWidth) {
@@ -73,12 +76,12 @@ namespace Gameboard_Drawing {
 
             boardMargin = (windowWidth - 73) / 2;
 
-            for (int i = 0; i < boardMargin; i++)
+            for (int i = 0; i < boardMargin; i++) {
                 whitespaceLeft += " ";
-
-            for (int i = 0; i < boardMargin; i++)
+            }
+            for (int i = 0; i < boardMargin; i++) {
                 whitespaceRight += " ";
-
+            }
             whitespaceRight += " ";
 
             /*This bit is aweful but I can't think of a better way to do this, it simply constructs the board and puts it
@@ -113,14 +116,6 @@ namespace Gameboard_Drawing {
 
             boardEndTop = Console.CursorTop;
 
-            //What is this for? it has no purpose... but it might, i have no recolection of
-            //writing this, i'll leave it in comments for now... Stop programming at 3am.
-            //for (int i = 1; i <= 64; i++)
-            //{
-            //    LocateCell(toFind: i, isPlayer: true);
-            //    Console.Write("        ");
-            //}
-
             DrawNumbers();
 
             //Draw the line at the bottom of the board
@@ -145,13 +140,6 @@ namespace Gameboard_Drawing {
             int cursorTop = Console.CursorTop;
             int cursorLeft = Console.CursorLeft;
             int ammountOnZero = 0;
-
-            ////first we clear all the cell locations to wipe any players off the board
-            //for (int i = 1; i <= 64; i++)
-            //{
-            //    LocateCell(toFind: i, isPlayer: true);
-            //    Console.Write("        ");
-            //}
 
             //Now we draw each player character in their own colour
             foreach (TacticalCheese.Player p in players) {
@@ -272,27 +260,28 @@ namespace Gameboard_Drawing {
 
             //LOCATE X AND Y CO-ORDINATE OF THE CELL
             //If we are looking for a cell that does not exist on the board throw an exception
-            if (toFind < 1 || toFind > 64)
+            if (toFind < 1 || toFind > 64) {
                 throw new Exception("Invalid Cell location");
-
+            }
             //first locate the row that the number is in
             row = ((toFind - 1) / 8);
 
             //now locate the column that the number is in
             column = (toFind % 8);
 
-            if (column == 0)
+            if (column == 0) {
                 column = 8;
-
+            }
             // - 1 so that the column is indexed from 0
             column--;
 
             //MAP THE X AND Y TO THE BOARD
             //now map the X and Y locations to the game board
-            if (isPlayer)
+            if (isPlayer) {
                 row = (row * 4) + (boardOriginTop + 3);
-            else
+            } else {
                 row = (row * 4) + (boardOriginTop + 1);
+            }
 
             column = ((column * 9) + 1) + boardMargin;
 

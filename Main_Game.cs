@@ -7,10 +7,12 @@ using System.Threading;
 using UserInputClass;
 
 namespace MainGame {
+
     /// <summary>
     /// This holds the main game loop and some methods for presentation
     /// </summary>
     public class TacticalCheese {
+
         #region Global Variables
 
         /// <summary>
@@ -61,6 +63,7 @@ namespace MainGame {
         /// game the user wants to be in.
         /// </summary>
         private enum GameState {
+
             /// <summary>
             /// The game menu state makes the game open the main menu method so
             /// the player can play/load the game, toggle the debug settings or
@@ -89,55 +92,6 @@ namespace MainGame {
             /// When the game finishes this will display the winner of the game
             /// </summary>
             GAMEOVER
-        }
-
-        /// <summary>
-        /// The Player struct holds the information regarding each player on the board
-        /// </summary>
-        public struct Player {
-            /// <summary>
-            /// Is the colour of the Ship that the player will have
-            /// </summary>
-            public int colour;
-
-            /// <summary>
-            /// Holds the name of the player
-            /// </summary>
-            public string name;
-
-            /// <summary>
-            /// Will hold a unique number for each player on the board
-            /// </summary>
-            public int number;
-
-            /// <summary>
-            /// Holds the cell poition of the player (where they are on the board)
-            /// </summary>
-            public int position;
-
-            /// <summary>
-            /// Will be the player character (what the player looks like on the board)
-            /// </summary>
-            public char ship;
-
-            /// <summary>
-            /// This constructor sets up all the values in the player struct.
-            /// </summary>
-            /// <param name="inPlayerNumber">
-            /// Will set a unique number for each player on the board
-            /// </param>
-            /// <param name="inName">Sets name of player</param>
-            /// <param name="inShip">Sets how the ship will look</param>
-            /// <param name="inPosition">
-            /// Sets the position of the player (defaults to 0)
-            /// </param>
-            public Player(int inPlayerNumber, string inName, char inShip, int inPosition = 0) {
-                number = inPlayerNumber;
-                name = inName;
-                position = inPosition;
-                colour = inPlayerNumber + 3;
-                ship = inShip;
-            }
         }
 
         /// <summary>
@@ -203,6 +157,56 @@ namespace MainGame {
             return 0;
         }
 
+        /// <summary>
+        /// The Player struct holds the information regarding each player on the board
+        /// </summary>
+        public struct Player {
+
+            /// <summary>
+            /// Is the colour of the Ship that the player will have
+            /// </summary>
+            public int colour;
+
+            /// <summary>
+            /// Holds the name of the player
+            /// </summary>
+            public string name;
+
+            /// <summary>
+            /// Will hold a unique number for each player on the board
+            /// </summary>
+            public int number;
+
+            /// <summary>
+            /// Holds the cell poition of the player (where they are on the board)
+            /// </summary>
+            public int position;
+
+            /// <summary>
+            /// Will be the player character (what the player looks like on the board)
+            /// </summary>
+            public char ship;
+
+            /// <summary>
+            /// This constructor sets up all the values in the player struct.
+            /// </summary>
+            /// <param name="inPlayerNumber">
+            /// Will set a unique number for each player on the board
+            /// </param>
+            /// <param name="inName">Sets name of player</param>
+            /// <param name="inShip">Sets how the ship will look</param>
+            /// <param name="inPosition">
+            /// Sets the position of the player (defaults to 0)
+            /// </param>
+            public Player(int inPlayerNumber, string inName, char inShip, int inPosition = 0) {
+                number = inPlayerNumber;
+                name = inName;
+                position = inPosition;
+                colour = inPlayerNumber + 3;
+                ship = inShip;
+            }
+        }
+
         #region Tactical Methods
 
         /// <summary>
@@ -221,12 +225,12 @@ namespace MainGame {
             //roll dice
             Console.Write("\nPress the any key to roll the tactical dice:");
 
-            tacticDiceRoll = RollDice(playerNumber:playerNumber);
+            tacticDiceRoll = RollDice(playerNumber: playerNumber);
 
             //if the dice roll set the state to menu stop this code
-            if (state == GameState.GAMEMENU)
+            if (state == GameState.GAMEMENU) {
                 return;
-
+            }
             Console.WriteLine(" You rolled {0}\n", tacticDiceRoll);
 
             //use switch statement to execute a tactic
@@ -351,10 +355,11 @@ namespace MainGame {
             string[] mainMenuItems = new string[4] { "Play Game", "Load Game", "Toggle Debug", "Quit" };
             int menuSelection;
 
-            if (debugMode == false)
+            if (debugMode == false) {
                 UserInput.Header(inHeader: "Welcome to Tactical Cheese Racer");
-            else
+            } else {
                 UserInput.Header(inHeader: "Welcome to Tactical Cheese Racer - Debug Mode (Note you cannot quit midgame)", colour: 5);
+            }
 
             Console.WriteLine(@" _______         _   _           _    _____                      ");
             Console.WriteLine(@"|__   __|       | | (_)         | |  / ____|                     ");
@@ -387,10 +392,11 @@ namespace MainGame {
                     break;
 
                 case 2: //Toggle Debug
-                    if (debugMode == false)
+                    if (debugMode == false) {
                         debugMode = true;
-                    else
+                    } else {
                         debugMode = false;
+                    }
                     break;
 
                 case 3: //Quit
@@ -471,10 +477,11 @@ namespace MainGame {
             Console.CursorVisible = false;
 
             //if the player needs to travel more than 8 spaces each way speed up the player (to save time)
-            if (distance >= -6 && distance <= 6)
+            if (distance >= -6 && distance <= 6) {
                 animationSpeed = 150;
-            else
+            } else {
                 animationSpeed = 75;
+            }
 
             //If the player needs to be moved forward we do the If, but if the player needs to be moved backwards we do the else.
             if (distance >= 0) {
@@ -502,8 +509,9 @@ namespace MainGame {
                     //update the players on the board so that it looks like they have moved one square
                     GameBoard.DrawPlayers(players: listOfPlayers);
 
-                    if (animationSpeed != 0)
+                    if (animationSpeed != 0) {
                         Thread.Sleep(animationSpeed);
+                    }
                 }
             } else {
                 for (int i = 0; i > distance; i--) {
@@ -531,8 +539,9 @@ namespace MainGame {
                     //update the players on the board so that it looks like they have moved one square
                     GameBoard.DrawPlayers(players: listOfPlayers);
 
-                    if (animationSpeed != 0)
+                    if (animationSpeed != 0) {
                         Thread.Sleep(animationSpeed);
+                    }
                 }
             }
 
@@ -550,9 +559,9 @@ namespace MainGame {
         private static void PlayerMoveToCell(int playerToMove, int cellNumber) {
             int distanceToTravel;
 
-            if (cellNumber < 0 || cellNumber > 64)
+            if (cellNumber < 0 || cellNumber > 64) {
                 throw new Exception("Invalid Cell location");
-
+            }
             //get distance to travel
             distanceToTravel = cellNumber - listOfPlayers[playerToMove].position;
 
@@ -592,6 +601,30 @@ namespace MainGame {
         #region Game related methods
 
         /// <summary>
+        /// This method will ask the player if they want to save the game or not
+        /// and then exits to the main menu
+        /// </summary>
+        /// <param name="playerNumber">
+        /// the player number that the game was exited on
+        /// </param>
+        private static void ExitMidGame(int playerNumber) {
+            string saveFileName;
+            Console.Clear();
+
+            UserInput.Header("Exiting game");
+
+            Console.WriteLine("Do you want to save this game for later?");
+
+            if (UserInput.YesNo()) {
+                Console.Write("\nEnter file name(max 20 characters): ");
+                saveFileName = UserInput.ValidString(minLength: 1, maxLength: 20);
+                SaveGame(currentPlayer: playerNumber, fileName: saveFileName);
+            }
+
+            state = GameState.GAMEMENU;
+        }
+
+        /// <summary>
         /// This method is what organises each turn of the game and holds the
         /// vast majority of the game logic
         /// </summary>
@@ -620,12 +653,12 @@ namespace MainGame {
                     break;
                 }
 
-                diceRoll = RollDice(playerNumber:i);
+                diceRoll = RollDice(playerNumber: i);
 
                 //if the dice roll exited the game stop this code
-                if (state == GameState.GAMEMENU)
+                if (state == GameState.GAMEMENU) {
                     return;
-
+                }
                 Console.WriteLine(" You rolled {0}", diceRoll);
 
                 //move the player depending on how far they rolled
@@ -654,8 +687,9 @@ namespace MainGame {
                 }
 
                 //if the tacticroll exited the game stop this code
-                if (state == GameState.GAMEMENU)
+                if (state == GameState.GAMEMENU) {
                     return;
+                }
 
                 //CHECK WON
                 if (listOfPlayers[i].position >= 64) {
@@ -670,30 +704,6 @@ namespace MainGame {
             }
             //set resume player to 0, so that if the player resumed from a loaded state the start player next round will be player 0
             resumePlayer = 0;
-        }
-
-        /// <summary>
-        /// This method will ask the player if they want to save the game or not
-        /// and then exits to the main menu
-        /// </summary>
-        /// <param name="playerNumber">
-        /// the player number that the game was exited on
-        /// </param>
-        private static void ExitMidGame(int playerNumber) {
-            string saveFileName;
-            Console.Clear();
-
-            UserInput.Header("Exiting game");
-
-            Console.WriteLine("Do you want to save this game for later?");
-
-            if (UserInput.YesNo()) {
-                Console.Write("\nEnter file name(max 20 characters): ");
-                saveFileName = UserInput.ValidString(minLength: 1, maxLength: 20);
-                SaveGame(currentPlayer: playerNumber, fileName: saveFileName);
-            }
-
-            state = GameState.GAMEMENU;
         }
 
         /// <summary>
@@ -719,27 +729,21 @@ namespace MainGame {
         /// </summary>
         /// <returns>The dice roll</returns>
 
-        private static int RollDice(int playerNumber)
-        {
+        private static int RollDice(int playerNumber) {
             ConsoleKeyInfo kb;
 
-
-            if (debugMode == false)
-            {
+            if (debugMode == false) {
                 kb = Console.ReadKey(true);
 
-                if (kb.Key == ConsoleKey.Escape)
-                {
+                if (kb.Key == ConsoleKey.Escape) {
                     ExitMidGame(playerNumber: playerNumber);
                 }
 
                 return diceRandomiser.Next(1, 7);
-            }
-            else {
+            } else {
                 Console.Write("Debug Roll: ");
                 return UserInput.ValidInteger();
             }
-
         }
 
         #endregion Game related methods
@@ -775,8 +779,9 @@ namespace MainGame {
             listOfPlayers.Clear();
 
             //if there are no files available return false to indicate file loading error
-            if (filePaths.Length == 0)
+            if (filePaths.Length == 0) {
                 return false;
+            }
 
             UserInput.Header(inHeader: "Pick a save file");
             //this makes the menu that prints out the available files, and it assigned the selected file to fileSelected
@@ -789,20 +794,22 @@ namespace MainGame {
                 //load the ammount of players and check validity
                 amountOfPlayers = int.Parse(reader.ReadLine());
 
-                if (amountOfPlayers < 2 || amountOfPlayers > 4)
+                if (amountOfPlayers < 2 || amountOfPlayers > 4) {
                     throw new Exception("Save file error: invalid number of players");
+                }
 
                 //set the resume player and check validity
                 resumePlayer = int.Parse(reader.ReadLine());
 
-                if (resumePlayer < 0 || resumePlayer > 4)
+                if (resumePlayer < 0 || resumePlayer > 4) {
                     throw new Exception("Save file error: invalid resume player");
+                }
 
                 //construct the player list
                 for (int i = 0; i < amountOfPlayers; i++) {
                     name = reader.ReadLine();
 
-                    //error if the user has edited the save file 
+                    //error if the user has edited the save file
                     if (name.Length > 20)
                         throw new Exception("Save file error: Name in save file is too long");
 
@@ -861,11 +868,10 @@ namespace MainGame {
                 writer = new StreamWriter(string.Format(@"saves\{0}.tcr", fileName));
                 writer.Write(outputBuffer);
                 writer.Close();
-            } catch //this will error if the file name has escape characters in it.
-            {
-                if (writer != null)
+            } catch {
+                if (writer != null) {
                     writer.Close();
-
+                }
                 Console.WriteLine("Error writing file: All data is lost in time forever");
                 Console.ReadKey();
             }
