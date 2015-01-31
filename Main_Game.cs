@@ -95,6 +95,56 @@ namespace MainGame {
         }
 
         /// <summary>
+        /// The Player struct holds the information regarding each player on the board
+        /// </summary>
+        public struct Player {
+
+            /// <summary>
+            /// Is the colour of the Ship that the player will have
+            /// </summary>
+            public int colour;
+
+            /// <summary>
+            /// Holds the name of the player
+            /// </summary>
+            public string name;
+
+            /// <summary>
+            /// Will hold a unique number for each player on the board
+            /// </summary>
+            public int number;
+
+            /// <summary>
+            /// Holds the cell poition of the player (where they are on the board)
+            /// </summary>
+            public int position;
+
+            /// <summary>
+            /// Will be the player character (what the player looks like on the board)
+            /// </summary>
+            public char ship;
+
+            /// <summary>
+            /// This constructor sets up all the values in the player struct.
+            /// </summary>
+            /// <param name="inPlayerNumber">
+            /// Will set a unique number for each player on the board
+            /// </param>
+            /// <param name="inName">Sets name of player</param>
+            /// <param name="inShip">Sets how the ship will look</param>
+            /// <param name="inPosition">
+            /// Sets the position of the player (defaults to 0)
+            /// </param>
+            public Player(int inPlayerNumber, string inName, char inShip, int inPosition = 0) {
+                number = inPlayerNumber;
+                name = inName;
+                position = inPosition;
+                colour = inPlayerNumber + 3;
+                ship = inShip;
+            }
+        }
+
+        /// <summary>
         /// The Main method is where the console is setup and where the main
         /// loop is executed.
         /// </summary>
@@ -155,56 +205,6 @@ namespace MainGame {
                 }
             }
             return 0;
-        }
-
-        /// <summary>
-        /// The Player struct holds the information regarding each player on the board
-        /// </summary>
-        public struct Player {
-
-            /// <summary>
-            /// Is the colour of the Ship that the player will have
-            /// </summary>
-            public int colour;
-
-            /// <summary>
-            /// Holds the name of the player
-            /// </summary>
-            public string name;
-
-            /// <summary>
-            /// Will hold a unique number for each player on the board
-            /// </summary>
-            public int number;
-
-            /// <summary>
-            /// Holds the cell poition of the player (where they are on the board)
-            /// </summary>
-            public int position;
-
-            /// <summary>
-            /// Will be the player character (what the player looks like on the board)
-            /// </summary>
-            public char ship;
-
-            /// <summary>
-            /// This constructor sets up all the values in the player struct.
-            /// </summary>
-            /// <param name="inPlayerNumber">
-            /// Will set a unique number for each player on the board
-            /// </param>
-            /// <param name="inName">Sets name of player</param>
-            /// <param name="inShip">Sets how the ship will look</param>
-            /// <param name="inPosition">
-            /// Sets the position of the player (defaults to 0)
-            /// </param>
-            public Player(int inPlayerNumber, string inName, char inShip, int inPosition = 0) {
-                number = inPlayerNumber;
-                name = inName;
-                position = inPosition;
-                colour = inPlayerNumber + 3;
-                ship = inShip;
-            }
         }
 
         #region Tactical Methods
