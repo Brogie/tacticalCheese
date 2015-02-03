@@ -645,13 +645,6 @@ namespace MainGame {
                 //MOVEMENT ROLL
                 Console.WriteLine("[MOVEMENT PHASE]");
                 Console.Write("Press the any key to roll the dice or Escape to quit:");
-                kb = Console.ReadKey(true);
-
-                //if the user pressed escape then move the game back to the the main menu.
-                if (kb.Key == ConsoleKey.Escape) {
-                    ExitMidGame(playerNumber: i);
-                    break;
-                }
 
                 diceRoll = RollDice(playerNumber: i);
 
@@ -738,7 +731,6 @@ namespace MainGame {
                 if (kb.Key == ConsoleKey.Escape) {
                     ExitMidGame(playerNumber: playerNumber);
                 }
-
                 return diceRandomiser.Next(1, 7);
             } else {
                 Console.Write("Debug Roll: ");
