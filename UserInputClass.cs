@@ -381,73 +381,14 @@ namespace UserInputClass {
         /// <returns>integer that is the index of the item the user selected.
         /// </returns>
         public static int SelectionMenu(char[] selectionArray, int padding = 0) {
-            bool loopComplete = false;
-            int topOffset = Console.CursorTop;
-            int bottomOffset = 0;
-            int selectedItem = 0;
-            ConsoleKeyInfo kb;
+            string[] convertedArray = new string[selectionArray.Length];
 
-            Console.CursorVisible = false;
-
-            //this will resise the console if the amount of elements in the list are too big
-            if ((selectionArray.Length + padding) > Console.WindowHeight) {
-                try {
-                    Console.SetWindowSize(80, (selectionArray.Length + padding));
-                } catch {
-                    throw new Exception("Too many items in the array to display");
-                }
+            for (int i = 0; i < selectionArray.Length; i++) {
+                convertedArray[i] = selectionArray[i].ToString();
             }
 
-            while (!loopComplete) {
-                //This for loop prints the array
-                for (int i = 0; i < selectionArray.Length; i++) {
-                    if (i == selectedItem) {
-                        //This section is what highlights the selected item
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine("-" + selectionArray[i]);
-                        Console.ResetColor();
-                    } else {
-                        //this section is what prints unselected items
-                        Console.WriteLine("-" + selectionArray[i]);
-                    }
-                }
+            return SelectionMenu(selectionArray: convertedArray, padding: padding);
 
-                bottomOffset = Console.CursorTop;
-
-                //This reads the input of the user and puts it into the variable KB
-                kb = Console.ReadKey(true);
-                //This switch statement parses the user input and acts appropriatly
-                //to alter what film is selected / what film will be outputed
-                switch (kb.Key) {
-                    case ConsoleKey.UpArrow:
-                        if (selectedItem > 0) {
-                            selectedItem--;
-                        } else {
-                            selectedItem = (selectionArray.Length - 1);
-                        }
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                        if (selectedItem < (selectionArray.Length - 1)) {
-                            selectedItem++;
-                        } else {
-                            selectedItem = 0;
-                        }
-                        break;
-
-                    case ConsoleKey.Enter:
-                        loopComplete = true;
-                        break;
-                }
-                //this resets the cursor back to the top of the page so that the menu
-                //can be wrote over with an updated selection.
-                Console.SetCursorPosition(0, topOffset);
-            }
-            //this sets the cursor just after the menu so that the program can continue
-            Console.SetCursorPosition(0, bottomOffset);
-            Console.CursorVisible = true;
-            return selectedItem;
         }
 
         /// <summary>
@@ -463,73 +404,13 @@ namespace UserInputClass {
         /// <param name="padding">How much space to pad arounf the menu</param>
         /// <returns>integer that is the index of the item the user selected.</returns>
         public static int SelectionMenu(List<string> selectionList, int padding = 0) {
-            bool loopComplete = false;
-            int topOffset = Console.CursorTop;
-            int bottomOffset = 0;
-            int selectedItem = 0;
-            ConsoleKeyInfo kb;
+            string[] convertedArray = new string[selectionList.Count];
 
-            Console.CursorVisible = false;
-
-            //this will resise the console if the amount of elements in the list are too big
-            if ((selectionList.Count + padding) > Console.WindowHeight) {
-                try {
-                    Console.SetWindowSize(80, (selectionList.Count + padding));
-                } catch {
-                    throw new Exception("Too many items in the list to display");
-                }
+            for (int i = 0; i < selectionList.Count; i++) {
+                convertedArray[i] = selectionList[i];
             }
 
-            while (!loopComplete) {
-                //This for loop prints list
-                for (int i = 0; i < selectionList.Count; i++) {
-                    if (i == selectedItem) {
-                        //This section is what highlights the selected item
-                        Console.BackgroundColor = ConsoleColor.Gray;
-                        Console.ForegroundColor = ConsoleColor.Black;
-                        Console.WriteLine("-" + selectionList[i]);
-                        Console.ResetColor();
-                    } else {
-                        //this section is what prints unselected items
-                        Console.WriteLine("-" + selectionList[i]);
-                    }
-                }
-
-                bottomOffset = Console.CursorTop;
-
-                //This reads the input of the user and puts it into the variable KB
-                kb = Console.ReadKey(true);
-                //This switch statement parses the user input and acts appropriatly
-                //to alter what film is selected / what film will be outputed
-                switch (kb.Key) {
-                    case ConsoleKey.UpArrow:
-                        if (selectedItem > 0) {
-                            selectedItem--;
-                        } else {
-                            selectedItem = (selectionList.Count - 1);
-                        }
-                        break;
-
-                    case ConsoleKey.DownArrow:
-                        if (selectedItem < (selectionList.Count - 1)) {
-                            selectedItem++;
-                        } else {
-                            selectedItem = 0;
-                        }
-                        break;
-
-                    case ConsoleKey.Enter:
-                        loopComplete = true;
-                        break;
-                }
-                //this resets the cursor back to the top of the page so that the menu
-                //can be wrote over with an updated selection.
-                Console.SetCursorPosition(0, topOffset);
-            }
-            //this sets the cursor just after the menu so that the program can continue
-            Console.SetCursorPosition(0, bottomOffset);
-            Console.CursorVisible = true;
-            return selectedItem;
+            return SelectionMenu(selectionArray: convertedArray, padding: padding);
         }
 
         #endregion Selection Menu Overloads
